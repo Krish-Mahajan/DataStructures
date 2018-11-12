@@ -191,48 +191,58 @@ public class LinkedList {
 				
 	}
 	
-	/* Function to merge sorted LinkedList*/
-	public Node mergeSortedList(Node head1,Node head2) {
-	
-		Node new_head1 = null;
-		
-		// iterate all elements of list 2 in list 1
-		while(head2!=null) {
-			 this.printList(head1);
-			 Node temp = head2;
-			 new_head1 = insert_head2(head1, new Node(head2.data));
-			 head2 = temp.next;
-			 head1 = new_head1;
-		}				
-		return new_head1;
-		
-	}
-	
-	public Node insert_head2(Node head1,Node head2) {
-		Node n = head1;
-		Node prev = null;
-		while(n!=null) {
-			if(n.data >= head2.data && n != head1) {
-			    head2.next = n;
-			    prev.next = head2;
-			    break;
-			    
-			}
-			else if(n.data >= head2.data && n == head1) {
-				head2.next = n;
-			    head1 = head2;
-			    break;
-			}
-			prev = n;	
-			n = n.next;
-			
-			
-		}
-		if(n == null) {
-			prev.next = head2;
-		} 
-		this.printList(head1);
-		return head1;
-	}
-	 
+	/* Takes two lists sorted in  
+	increasing order, and splices  
+	their nodes together to make  
+	one big sorted list which is  
+	returned. */
+	Node sortedMerge(Node headA, Node headB) 
+	{ 
+	      
+	    /* a dummy first node to  
+	       hang the result on */
+	    Node dummyNode = new Node(0); 
+	      
+	    /* tail points to the  
+	    last result node */
+	    Node tail = dummyNode; 
+	    while(true)  
+	    { 
+	          
+	        /* if either list runs out,  
+	        use the other list */
+	        if(headA == null) 
+	        { 
+	            tail.next = headB; 
+	            break; 
+	        } 
+	        if(headB == null) 
+	        { 
+	            tail.next = headA; 
+	            break; 
+	        } 
+	          
+	        /* Compare the data of the two 
+	        lists whichever lists' data is  
+	        smaller, append it into tail and 
+	        advance the head to the next Node 
+	        */
+	        if(headA.data <= headB.data) 
+	        { 
+	            tail.next = headA; 
+	            headA = headA.next; 
+	        }  
+	        else
+	        { 
+	            tail.next = headB; 
+	            headB = headB.next; 
+	        } 
+	          
+	        /* Advance the tail */
+	        tail = tail.next; 
+	    } 
+	   //Returning dummy it.
+	    return dummyNode.next; 
+	} 
+
 }

@@ -241,7 +241,7 @@ public class LinkedList {
 	        /* Advance the tail */
 	        tail = tail.next; 
 	    } 
-	   //Returning dummy it again
+	
 	    return dummyNode.next; 
 	} 
 

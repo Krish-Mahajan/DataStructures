@@ -28,7 +28,7 @@ public class LinkedListTest {
         System.out.println("Merging the given linkedList");
 
         Node new_head = list1.sortedMerge(list1.head, list2.head);
-        //returning dummy it again
+ 
         list1.head = new_head;
         list1.printList(list1.head);
 	}

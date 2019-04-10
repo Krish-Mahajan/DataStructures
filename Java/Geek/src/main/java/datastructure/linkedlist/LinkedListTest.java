@@ -2,6 +2,12 @@ package datastructure.linkedlist;
 
 import datastructure.linkedlist.LinkedList.Node;
 
+
+/**
+ * Test Class for LinkedList
+ * @author krish.mahajan@gamil.com
+ *
+ */
 public class LinkedListTest {
 
 	public static void main(String[] args) {

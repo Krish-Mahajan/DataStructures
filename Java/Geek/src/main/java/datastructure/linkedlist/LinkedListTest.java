@@ -138,5 +138,53 @@ public class LinkedListTest {
 		System.out.print("Original LinkedList size recursively: " + size);
 		System.out.println(" ");
 		
+		//swapNode
+		linkedList.swapNodes(0.0, 0.5);
+		System.out.print(" LinkedList after swapping the nodes  (0.0, 0.5): ");
+		linkedList.printList();
+		System.out.println(" ");
+		
+		
+		linkedList.swapNodes(0.0, 3.0);
+		System.out.print(" LinkedList after swapping the nodes (0.0, 3.0): ");
+		linkedList.printList();
+		System.out.println(" ");
+		
+		
+		linkedList.swapNodes(-0.5, 0.0);
+		System.out.print(" LinkedList after swapping the nodes (-0.5, 0.0): ");
+		linkedList.printList();
+		System.out.println(" ");
+		
+		linkedList.reverseList();
+		System.out.print(" LinkedList after reversal: ");
+		linkedList.printList();
+		System.out.println(" "); 
+		
+		
+		// Merge sortedLinkList
+		double[] data1 = {-20,-4, -2 , 5 ,15};
+		LinkedList l1 = linkedList.createLinkedListArray(data1);
+		System.out.print(" LinkedList L1 after creation from array: ");
+		l1.printList(); 
+		System.out.println(" "); 
+		
+		double[] data2 = {2,3,20,25};
+		LinkedList l2 = linkedList.createLinkedListArray(data2);
+		System.out.print(" LinkedList L2 after creation from array: ");
+		l2.printList(); 
+		System.out.println(" "); 
+		
+		
+//		LinkedList l = linkedList.mergeTwoSortedLinkList(l1, l2);
+//		System.out.print(" LinkedList L after merging with L1 & L2: ");
+//		l.printList(); 
+//		System.out.println(" "); 
+		
+		LinkedList ll = linkedList.sortedMerge(l1, l2);
+		System.out.print(" LinkedList LL after sort merging with L1 & L2: ");
+		ll.printList(); 
+		System.out.println(" "); 
+		
 	}
 }

@@ -42,7 +42,7 @@ public class LinkedList {
 	}
 
 	/* Linked list Node */
-	class Node {
+	public class Node {
 
 		private double data;
 		private Node next;
@@ -81,7 +81,7 @@ public class LinkedList {
 	 * 
 	 * @param new_data
 	 */
-	public void push(int new_data) {
+	public void push(double new_data) {
 		Node new_node = new Node(new_data);
 		new_node.next = this.getHead();
 		this.setHead(new_node);
@@ -255,7 +255,7 @@ public class LinkedList {
 	}
 
 	/**
-	 * Reverse the LinkList
+	 * Reverse the LinkList iteratively
 	 */
 	public void reverseList() {
 
@@ -271,6 +271,26 @@ public class LinkedList {
 		}
 		this.setHead(prev);
 
+	}
+	
+	/**
+	 * Reverser the LinkList recursively
+	 */
+	public void reverseList(Node curr , Node prev) {
+		
+		if( curr == null)
+		{
+			this.setHead(prev);
+			return;
+		}
+		else
+		{
+			Node next = curr.getNext();
+			curr.setNext(prev);
+			prev = curr;
+			curr = next;
+			reverseList(curr, prev);
+		}
 	}
 
 	/**

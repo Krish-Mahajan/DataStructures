@@ -104,6 +104,7 @@ public class StackLinkedList {
 	}
 	
 	/**
+	 * REMEMBER
 	 * Reverse stack , using Push Pop
 	 * (https://www.geeksforgeeks.org/reverse-a-stack-using-recursion/)
 	 */
@@ -130,6 +131,41 @@ public class StackLinkedList {
 			this.pop();
 			insert_at_bottom(x);
 			this.push(a);
+		}
+	}
+	
+	/** 
+	 * REMEMBER
+	 * Sort a stack recursively only using Stack operation push(),pop(),top()
+	 * (https://www.geeksforgeeks.org/sort-a-stack-using-recursion/)
+	 */
+	
+	public void sortRecursively() {
+		if(!this.isEmpty())
+		{
+			double x = this.peek();
+			this.pop();
+			sortRecursively();
+			insertInOrder(x);
+		}
+		else return;
+	}
+	
+	public void insertInOrder(double x) {
+		if(this.isEmpty())
+		{
+			this.push(x);
+		}
+		else
+		{
+			double a = this.peek();
+			if( a > x)
+			{
+				this.pop();
+				insertInOrder(x);
+				this.push(a);
+			}
+			else this.push(x);
 		}
 	}
 }

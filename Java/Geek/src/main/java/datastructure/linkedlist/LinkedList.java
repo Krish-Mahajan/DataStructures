@@ -175,8 +175,8 @@ public class LinkedList {
 	}
 
 	/**
+	 * REMEBER
 	 * Find size of LinkedList recursively
-	 * 
 	 * @return size of LinkedList.
 	 */
 	public int RecursiveSize() {
@@ -255,6 +255,7 @@ public class LinkedList {
 	}
 
 	/**
+	 * REMEMBER
 	 * Reverse the LinkList iteratively
 	 */
 	public void reverseList() {
@@ -431,6 +432,7 @@ public class LinkedList {
 		
 	} 
 	/**
+	 * REMEMBER
 	 * Reverse a LinkList in group of K
 	 * @param head
 	 * @param k

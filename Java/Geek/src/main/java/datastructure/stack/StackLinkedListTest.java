@@ -31,17 +31,32 @@ public class StackLinkedListTest {
 //		sl1.printNGE(2); 
 		
 		
+//		StackLinkedList sl2 = new StackLinkedList();
+//		sl2.push(4);
+//		sl2.push(3);
+//		sl2.push(2);
+//		sl2.push(1);
+//		System.out.print("Stack before reversal ");
+//		sl2.printStack();
+//		sl2.reverse();
+//		System.out.println(" ");
+//		System.out.print("Stack After reversal ");
+//		sl2.printStack();
+		
+		
 		StackLinkedList sl2 = new StackLinkedList();
-		sl2.push(4);
-		sl2.push(3);
-		sl2.push(2);
-		sl2.push(1);
+		sl2.push(30);
+		sl2.push(-5);
+		sl2.push(18);
+		sl2.push(14);
+		sl2.push(-3);
 		System.out.print("Stack before reversal ");
 		sl2.printStack();
-		sl2.reverse();
+		sl2.sortRecursively();
 		System.out.println(" ");
-		System.out.print("Stack After reversal ");
+		System.out.print("Stack After recursively sorting ");
 		sl2.printStack();
+	
 	}
 
 }

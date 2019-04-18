@@ -14,12 +14,12 @@ public class LinkedListTest {
 		
 		
 		//setting the linkedlist
-		LinkedList linkedList = new LinkedList();
+		LinkedList<Double> linkedList = new LinkedList<Double>();
 		
-		Node listHead = linkedList.new Node(0);
-		Node second = linkedList.new Node(1);
-		Node third = linkedList.new Node(2);
-		Node fourth = linkedList.new Node(3);
+		LinkedList<Double>.Node<Double> listHead = linkedList.new Node<Double>(0.0);
+		LinkedList<Double>.Node<Double> second = linkedList.new Node<Double>(1.0);
+		LinkedList<Double>.Node<Double> third = linkedList.new Node<Double>(2.0);
+		LinkedList<Double>.Node<Double> fourth = linkedList.new Node<Double>(3.0);
 	   
 		linkedList.setHead(listHead);
 		linkedList.getHead().setNext(second);
@@ -42,7 +42,7 @@ public class LinkedListTest {
 		
 		//Adding new element at the start
 		System.out.print("New LinkedList after addition at the start ");
-		linkedList.push(-1);
+		linkedList.push(-1.0);
 		linkedList.printList();
 		System.out.println(" "); 
 		 size =linkedList.IterativeSize();
@@ -55,7 +55,7 @@ public class LinkedListTest {
 		
 		//Adding new element  in between 1 & 2
 		System.out.print("New LinkedList after addition in between ");
-		linkedList.insertAfter(0.5, 1);
+		linkedList.insertAfter(0.5, 1.0);
 		linkedList.printList();
 		System.out.println(" "); 
 		 size =linkedList.IterativeSize();
@@ -70,7 +70,7 @@ public class LinkedListTest {
 		
 		//Adding new element at the last position
 		System.out.print("New LinkedList New LinkedList after addition at last position: ");
-		linkedList.insertAfter(3.5, 3);
+		linkedList.insertAfter(3.5, 3.0);
 		linkedList.printList();
 		System.out.println(" "); 
 		 size =linkedList.IterativeSize();
@@ -84,7 +84,7 @@ public class LinkedListTest {
 		
 		//Adding new element in between -1 & 0
 		System.out.print("New LinkedList after addition in between ");
-		linkedList.insertAfter(-0.5, -1);
+		linkedList.insertAfter(-0.5, -1.0);
 		linkedList.printList();
 		System.out.println(" "); 
 		 size =linkedList.IterativeSize();

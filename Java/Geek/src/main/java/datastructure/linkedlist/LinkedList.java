@@ -2,17 +2,18 @@ package datastructure.linkedlist;
 
 /**
  * @author krish.mahajan@gmail.com
+ * @param <T>
  *
  */
-public class LinkedList {
+public class LinkedList<T extends Comparable<T>> {
 
-	private Node head; // head of list
+	private Node<T> head; // head of list
 
-	public Node getHead() {
+	public Node<T> getHead() {
 		return head;
 	}
 
-	public void setHead(Node head) {
+	public void setHead(Node<T> head) {
 		this.head = head;
 	}
 
@@ -23,18 +24,18 @@ public class LinkedList {
 	 * @param n
 	 * @return
 	 */
-	public boolean isHead(Node n) {
+	public boolean isHead(Node<T> n) {
 		if (n.getData() == this.getHead().getData())
 			return true;
 		return false;
 	} 
 	
-	public LinkedList createLinkedListArray(double[] data) {
-		LinkedList l  = new LinkedList();
-		l.setHead(new Node(data[0]));
-		Node currL = l.getHead();
+	public LinkedList<T> createLinkedListArray(T[] data) {
+		LinkedList<T> l  = new LinkedList<T>();
+		l.setHead(new Node<T>(data[0]));
+		Node<T> currL = l.getHead();
 		for(int i =1; i <data.length ; i++ ) {
-			currL.setNext(new Node(data[i]));
+			currL.setNext(new Node<T>(data[i]));
 			currL = currL.getNext();
 		}
 		
@@ -42,33 +43,39 @@ public class LinkedList {
 	}
 
 	/* Linked list Node */
-	public class Node {
+	public  class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 
-		private double data;
-		private Node next;
+		private T data;
+		private Node<T> next;
 
 		// Constructor to create a new node
 		// Next is by default initialized
-		Node(double d) {
+		Node(T d) {
 			this.data = d;
 		}
 
-		public double getData() {
+		public T getData() {
 			return data;
 		}
 
-		public Node getNext() {
+		public Node<T> getNext() {
 			return next;
 		}
 
-		public void setNext(Node next) {
+		public void setNext(Node<T> next) {
 			this.next = next;
+		}
+
+		@Override
+		public int compareTo(Node<T> o) {
+			return this.getData().compareTo(o.getData());
+	
 		}
 
 	}
 
 	public void printList() {
-		Node start = this.getHead();
+		Node<T> start = this.getHead();
 		while (start != null) {
 			System.out.print(start.getData());
 			start = start.getNext();
@@ -81,8 +88,8 @@ public class LinkedList {
 	 * 
 	 * @param new_data
 	 */
-	public void push(double new_data) {
-		Node new_node = new Node(new_data);
+	public void push(T new_data) {
+		Node<T> new_node = new Node<T>(new_data);
 		new_node.next = this.getHead();
 		this.setHead(new_node);
 	}
@@ -94,14 +101,14 @@ public class LinkedList {
 	 * @param newNodeData         Data value of new node
 	 * @param insertAfterNodeData Data value of given node
 	 */
-	public void insertAfter(double newNodeData, double insertAfterNodeData) {
+	public void insertAfter(T newNodeData, T insertAfterNodeData) {
 		// create the new_node
-		Node new_node = new Node(newNodeData);
+		Node<T> new_node = new Node<T>(newNodeData);
 
 		// search the existing node with given data value starting at head of the
 		// LinkedList
-		Node curr = this.getHead();
-		Node currNext = curr.next;
+		Node<T> curr = this.getHead();
+		Node<T> currNext = curr.next;
 
 		// iterate over the linkedList till the node is found or end of the LinkedList
 		// is reached
@@ -127,11 +134,11 @@ public class LinkedList {
 	 * 
 	 * @param data
 	 */
-	public void deleteNode(double data) {
+	public void deleteNode(T data) {
 
 		// Iterate over the linkList to find the given node to be deleted
-		Node currPrev = null;
-		Node curr = this.getHead();
+		Node<T> currPrev = null;
+		Node<T> curr = this.getHead();
 
 		while (curr != null) {
 			if (curr.getData() == data) {
@@ -165,7 +172,7 @@ public class LinkedList {
 			System.out.println("No linkedList found");
 			return 0;
 		}
-		Node curr = this.getHead();
+		Node<T> curr = this.getHead();
 		int size = 0;
 		while (curr != null) {
 			curr = curr.getNext();
@@ -180,12 +187,12 @@ public class LinkedList {
 	 * @return size of LinkedList.
 	 */
 	public int RecursiveSize() {
-		Node curr = this.getHead();
+		Node<T> curr = this.getHead();
 		int size = this.RecursiveSize(curr);
 		return size;
 	}
 
-	private int RecursiveSize(Node curr) {
+	private int RecursiveSize(Node<T> curr) {
 		if (curr == null) {
 			return 0;
 		}
@@ -201,14 +208,14 @@ public class LinkedList {
 	 * @param key2 Key of Node2
 	 */
 
-	public void swapNodes(double key1, double key2) {
+	public void swapNodes(T key1, T key2) {
 
 		if ((Double) key1 == null && (Double) key2 == null) {
 			System.out.println("Keys cannot be null");
 			return;
 		}
-		Node currNode = this.getHead();
-		Node prevNode = null, key1Node = null, key1PrevNode = null, key2Node = null, key2PrevNode = null;
+		Node<T> currNode = this.getHead();
+		Node<T> prevNode = null, key1Node = null, key1PrevNode = null, key2Node = null, key2PrevNode = null;
 
 		while (currNode != null) {
 
@@ -248,7 +255,7 @@ public class LinkedList {
 		else
 			this.setHead(key1Node);
 
-		Node tmp = key1Node.getNext();
+		Node<T> tmp = key1Node.getNext();
 		key1Node.setNext(key2Node.getNext());
 		key2Node.setNext(tmp);
 
@@ -260,9 +267,9 @@ public class LinkedList {
 	 */
 	public void reverseList() {
 
-		Node curr = this.getHead();
-		Node next = null;
-		Node prev = null;
+		Node<T> curr = this.getHead();
+		Node<T> next = null;
+		Node<T> prev = null;
 		while (curr != null) {
 			next = curr.getNext();
 			curr.setNext(prev);
@@ -277,7 +284,7 @@ public class LinkedList {
 	/**
 	 * Reverser the LinkList recursively
 	 */
-	public void reverseList(Node curr , Node prev) {
+	public void reverseList(Node<T> curr , Node<T> prev) {
 		
 		if( curr == null)
 		{
@@ -286,7 +293,7 @@ public class LinkedList {
 		}
 		else
 		{
-			Node next = curr.getNext();
+			Node<T> next = curr.getNext();
 			curr.setNext(prev);
 			prev = curr;
 			curr = next;
@@ -297,7 +304,7 @@ public class LinkedList {
 	/**
 	 * Merge two sorted LinkList (My version)
 	 */
-	public LinkedList mergeTwoSortedLinkList(LinkedList l1, LinkedList l2) {
+	public LinkedList<T> mergeTwoSortedLinkList(LinkedList<T> l1, LinkedList<T> l2) {
 
 		// LinkedList l; -- wrong , all local variable must be initialized , not true for class.static or instance variable
 		
@@ -305,8 +312,8 @@ public class LinkedList {
 		// attached to an object(something in memory) , because it has not been newed yet.
 		
 		
-		LinkedList l;
-		l = new LinkedList();
+		LinkedList<T>  l;
+		l = new LinkedList<T>();
 
 		// Both the list shouldn't be empty
 		if (l1.getHead() == null & l2.getHead() == null) {
@@ -325,12 +332,12 @@ public class LinkedList {
 		}
 
 
-		Node currL1 = l1.getHead();
-		Node currL2 = l2.getHead();
+		 Node<T> currL1 = l1.getHead();
+		 Node<T> currL2 = l2.getHead();
 
 		
 		// set the head of the new LinkedList first	
-		if (currL1.getData() <= currL2.getData()) {
+		if (currL1.getData().compareTo(currL2.getData()) >=0) {
 			l.setHead(currL1);
 			currL1 = currL1.getNext();
 		} else {
@@ -338,15 +345,15 @@ public class LinkedList {
 			currL2 = currL2.getNext();
 		}
 
-		Node currL = l.getHead();
+		Node<T> currL = l.getHead();
 
 		
 		// iterate and compare the two list
 		while (currL1 != null) {
-			double currL1Key = currL1.getData();
+			T currL1Key = currL1.getData();
 			while (currL2 != null) {
-				double currL2Key = currL2.getData();
-				if (currL2Key <= currL1Key) {
+				T currL2Key = currL2.getData();
+				if (currL2Key.compareTo(currL1Key) <=0) {
 						currL.setNext(currL2);
 						currL = currL.getNext();
 					}
@@ -387,16 +394,16 @@ public class LinkedList {
 	 *  Merge two sorted LinkList (easier solution)
 	 */
 	
-	public LinkedList sortedMerge(LinkedList l1  , LinkedList l2) {
+	public LinkedList<T> sortedMerge(LinkedList<T> l1  , LinkedList<T> l2) {
 		
-		Node headA = l1.getHead();
-		Node headB = l2.getHead();
+		Node<T> headA = l1.getHead();
+		Node<T> headB = l2.getHead();
 		
 		/* a dummy first node to hang the result on */
-		Node dummyNode = new Node(0);
+		Node<T> dummyNode = (Node<T>) new Node<Integer>(0);
 		
 		/* tail points to the last result node */
-		Node currNode = dummyNode;
+		Node<T> currNode = dummyNode;
 		while(true) {
 			/* if either list runs out,use the other list */
 			if(headA == null)
@@ -413,7 +420,7 @@ public class LinkedList {
 			 * data is smaller , append it into tail and advance the head
 			 * to the next node
 			 */
-			if(headA.getData() <= headB.getData()) {
+			if(headA.getData().compareTo(headB.getData())<= 0) {
 				currNode.setNext(headA);
 				headA = headA.getNext();
 			}
@@ -426,7 +433,7 @@ public class LinkedList {
 			currNode = currNode.getNext();
 		} 
 		
-		LinkedList l = new LinkedList();
+		LinkedList<T> l = new LinkedList<T>();
 		l.setHead(dummyNode.getNext());
 		return l;
 		
@@ -438,10 +445,10 @@ public class LinkedList {
 	 * @param k
 	 * @return
 	 */
-	public Node reverseK(Node head,int k) {
-         Node curr = head;
-         Node next = null;
-         Node prev = null;
+	public Node<T> reverseK(Node<T> head,int k) {
+         Node<T> curr = head;
+         Node<T> next = null;
+         Node<T> prev = null;
          
          int count = 0;
          

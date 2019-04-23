@@ -50,7 +50,7 @@ public class LinkedList<T extends Comparable<T>> {
 
 		// Constructor to create a new node
 		// Next is by default initialized
-		Node(T d) {
+		public Node(T d) {
 			this.data = d;
 		}
 

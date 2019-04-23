@@ -4,9 +4,9 @@ import datastructure.linkedlist.LinkedList;
 import datastructure.linkedlist.LinkedList.Node;
 
 
-public class StackLinkedList {
+public class StackLinkedList<T extends Comparable<T>> {
 
-	LinkedList l = new LinkedList();
+	LinkedList<T> l = new LinkedList<T>();
 
 	
 	/**
@@ -23,7 +23,7 @@ public class StackLinkedList {
      * @param x
      * @return
      */
-	public void push(double x) {
+	public void push(T x) {
 		l.push(x);
 	}
 	
@@ -32,17 +32,17 @@ public class StackLinkedList {
 	 * Remove element from stack
 	 * @return
 	 */
-	public double pop() {
+	public T pop() {
 		if(this.l.getHead() != null)
 		{
-			double tmp = l.getHead().getData();
+			T tmp = l.getHead().getData();
 			l.setHead(l.getHead().getNext());
 			return tmp;
 		}
 		else
 		{   
 			System.out.println("No element in stack");
-			return 0;
+			return null;
 		}
 	} 
 	
@@ -50,12 +50,12 @@ public class StackLinkedList {
 	 * See element at top of the stack
 	 * @return
 	 */
-	public double peek() {
+	public T peek() {
 		if(this.l.getHead() !=null) return this.l.getHead().getData();
 		else 
 		{
 			System.out.println("No element in stack");
-			return 0;
+			return null;
 		}
 	}
 	/**
@@ -76,17 +76,17 @@ public class StackLinkedList {
 	/**
 	 * Print the next greater element for every element
 	 */
-	public void printNGE(int n) {
+	public void printNGE(T n) {
 		if(this.l.getHead() != null)
 		{
-			Node curr = this.l.getHead();
-			double nextRIghtMax = curr.getData();
+			LinkedList<T>.Node<T> curr = this.l.getHead();
+			T nextRIghtMax = curr.getData();
 			while( curr != null & curr.getData() != n )
 			{
-				if(curr.getData() > n) nextRIghtMax = curr.getData();
+				if(curr.getData().compareTo(n) > 0) nextRIghtMax = curr.getData();
 				curr = curr.getNext();
 			}
-			if(curr != null && nextRIghtMax > n)
+			if(curr != null && nextRIghtMax.compareTo(n) > 0)
 			{
 				System.out.println("Next Greater element than " +n + " in the stack on right side is " + nextRIghtMax);
 	
@@ -111,7 +111,7 @@ public class StackLinkedList {
 	public void reverse() {
 		if(!this.isEmpty())
 		{
-			 double x = this.peek();
+			 T x = this.peek();
 			 this.pop();
 			 reverse();
 			 insert_at_bottom(x);
@@ -119,7 +119,7 @@ public class StackLinkedList {
 		else return ;
 	}
 	
-	private void insert_at_bottom(double x) {
+	private void insert_at_bottom(T x) {
 		if(this.isEmpty())
 		{
 			this.push(x);
@@ -127,7 +127,7 @@ public class StackLinkedList {
 		}
 		else
 		{
-			double a = this.peek();
+			T a = this.peek();
 			this.pop();
 			insert_at_bottom(x);
 			this.push(a);
@@ -143,7 +143,7 @@ public class StackLinkedList {
 	public void sortRecursively() {
 		if(!this.isEmpty())
 		{
-			double x = this.peek();
+			T x = this.peek();
 			this.pop();
 			sortRecursively();
 			insertInOrder(x);
@@ -151,15 +151,15 @@ public class StackLinkedList {
 		else return;
 	}
 	
-	public void insertInOrder(double x) {
+	public void insertInOrder(T x) {
 		if(this.isEmpty())
 		{
 			this.push(x);
 		}
 		else
 		{
-			double a = this.peek();
-			if( a > x)
+			T a = this.peek();
+			if( a.compareTo(x) > 0)
 			{
 				this.pop();
 				insertInOrder(x);

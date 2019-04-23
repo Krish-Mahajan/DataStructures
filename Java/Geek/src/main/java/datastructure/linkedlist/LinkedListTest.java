@@ -168,30 +168,30 @@ public class LinkedListTest {
 		linkedList.printList();
 		System.out.println(" "); 
 		
-//		
-//		// Merge sortedLinkList
-//		double[] data1 = {-20,-4, -2 , 5 ,15};
-//		LinkedList l1 = linkedList.createLinkedListArray(data1);
-//		System.out.print(" LinkedList L1 after creation from array: ");
-//		l1.printList(); 
-//		System.out.println(" "); 
-//		
-//		double[] data2 = {2,3,20,25};
-//		LinkedList l2 = linkedList.createLinkedListArray(data2);
-//		System.out.print(" LinkedList L2 after creation from array: ");
-//		l2.printList(); 
-//		System.out.println(" "); 
+		
+		// Merge sortedLinkList
+		Double[] data1 = {-20.0,-4.0, -2.0 , 5.0 ,15.0};
+		LinkedList<Double> l1 = linkedList.createLinkedListArray(data1);
+		System.out.print(" LinkedList L1 after creation from array: ");
+		l1.printList(); 
+		System.out.println(" "); 
+		
+		Double[] data2 = {2.0,3.0,20.0,25.0};
+		LinkedList<Double> l2 = linkedList.createLinkedListArray(data2);
+		System.out.print(" LinkedList L2 after creation from array: ");
+		l2.printList(); 
+		System.out.println(" "); 
 		
 		
-//		LinkedList l = linkedList.mergeTwoSortedLinkList(l1, l2);
+//		LinkedList<Double> l = linkedList.mergeTwoSortedLinkList(l1, l2);
 //		System.out.print(" LinkedList L after merging with L1 & L2: ");
 //		l.printList(); 
 //		System.out.println(" "); 
-//		
-//		LinkedList ll = linkedList.sortedMerge(l1, l2);
-//		System.out.print(" LinkedList LL after sort merging with L1 & L2: ");
-//		ll.printList(); 
-//		System.out.println(" "); 
+		
+		LinkedList<Double> ll = linkedList.sortedMerge(l1, l2);
+		System.out.print(" LinkedList LL after sort merging with L1 & L2: ");
+		ll.printList(); 
+		System.out.println(" "); 
 		
 	}
 }

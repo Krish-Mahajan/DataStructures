@@ -25,7 +25,7 @@ public class LinkedList<T extends Comparable<T>> {
 	 * @return
 	 */
 	public boolean isHead(Node<T> n) {
-		if (n.getData() == this.getHead().getData())
+		if (n.getData().equals(this.getHead().getData()))
 			return true;
 		return false;
 	} 
@@ -34,7 +34,7 @@ public class LinkedList<T extends Comparable<T>> {
 		LinkedList<T> l  = new LinkedList<T>();
 		l.setHead(new Node<T>(data[0]));
 		Node<T> currL = l.getHead();
-		for(int i =1; i <data.length ; i++ ) {
+		for(int i =1; i < data.length ; i++ ) {
 			currL.setNext(new Node<T>(data[i]));
 			currL = currL.getNext();
 		}
@@ -113,7 +113,7 @@ public class LinkedList<T extends Comparable<T>> {
 		// iterate over the linkedList till the node is found or end of the LinkedList
 		// is reached
 		while (curr != null) {
-			if (curr.getData() == insertAfterNodeData) {
+			if (curr.getData().equals(insertAfterNodeData)) {
 				break;
 			}
 
@@ -141,7 +141,7 @@ public class LinkedList<T extends Comparable<T>> {
 		Node<T> curr = this.getHead();
 
 		while (curr != null) {
-			if (curr.getData() == data) {
+			if (curr.getData().equals(data)) {
 
 				// if curr is head of the linkedList
 				if (this.isHead(curr)) {
@@ -219,12 +219,12 @@ public class LinkedList<T extends Comparable<T>> {
 
 		while (currNode != null) {
 
-			if (key1 == currNode.getData()) {
+			if (key1.equals(currNode.getData())) {
 				key1PrevNode = prevNode;
 				key1Node = currNode;
 			}
 
-			if (key2 == currNode.getData()) {
+			if (key2.equals(currNode.getData())) {
 				key2PrevNode = prevNode;
 				key2Node = currNode;
 			}

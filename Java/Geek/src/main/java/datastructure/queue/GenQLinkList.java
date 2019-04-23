@@ -5,17 +5,19 @@ import datastructure.linkedlist.LinkedList.Node;
 
 public class GenQLinkList<T> implements IGenQ<T> {
 
-	private LinkedList l = new LinkedList(); // This LinkedList holds the Queue
-	private Node start,end;  //Start , End will hold references to start & end of LinkList
+	private LinkedList<Double> l = new LinkedList<Double>(); // This LinkedList holds the Queue
+	private LinkedList<Double>.Node<Double> start,end;  //Start , End will hold references to start & end of LinkList
 	
 	
 	@Override
 	public void put(T obj) throws QueueFullException {
 		if(this.isGenQLinkListEmpty())
-		{
-			this.l.setHead(new Node(obj));
-		}
-		
+//		{
+//			LinkedList<T>.Node<T> head = new LinkedList<T>.Node<T>(obj);
+//			// this.l.setHead(new LinkedList<T>.Node<T>(obj));
+//			this.l.setHead(head);
+//		}
+//		
 		
 	}
 

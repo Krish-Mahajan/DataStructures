@@ -57,6 +57,16 @@ public class StackLinkedListTest {
 		System.out.print("Stack After recursively sorting ");
 		sl3.printStack();
 	
+		System.out.println(" ");
+		String check1 = "[()]{}{[()()]()}";
+		boolean is_balanced1 = StackLinkedList.checkBalancedParanthese(check1);
+		System.out.print("Expression "+ check1 + " is balanced: " + is_balanced1); 
+		
+		
+		System.out.println(" ");
+		String check2 = "[(])";
+		boolean is_balanced2 = StackLinkedList.checkBalancedParanthese(check2);
+		System.out.print("Expression "+ check2 + " is balanced: " + is_balanced2);
 	}
 
 }

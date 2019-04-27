@@ -16,7 +16,6 @@ public class GenQLinkList<T extends Comparable<T>> implements IGenQLinkList<T> {
 	}
 
 
-	@Override
 	public void put(T obj) {
 		if(this.isGenQLinkListEmpty())
 		{
@@ -36,7 +35,6 @@ public class GenQLinkList<T extends Comparable<T>> implements IGenQLinkList<T> {
 	}
 
 	// wrong implementation
-	@Override
 	public T get() throws QueueEmptyException {
 		if(this.isGenQLinkListEmpty())
 		{

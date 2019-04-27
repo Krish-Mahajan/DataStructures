@@ -17,7 +17,6 @@ public class GenQueueArray<T> implements IGenQ<T> {
 	/**
 	 * Put am item in the queue
 	 */
-	@Override
 	public void put(T obj) throws QueueFullException {
 		
 		if (putloc == q.length) throw new QueueFullException(q.length);
@@ -30,7 +29,6 @@ public class GenQueueArray<T> implements IGenQ<T> {
 	/**
 	 * Get an item from the queue
 	 */
-	@Override
 	public T get() throws QueueEmptyException {
 		
 		if(getloc == putloc) throw new QueueEmptyException();

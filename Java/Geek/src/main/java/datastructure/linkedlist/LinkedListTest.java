@@ -1,5 +1,7 @@
 package datastructure.linkedlist;
 
+import org.apache.log4j.Logger;
+
 import datastructure.linkedlist.LinkedList.Node;
 
 
@@ -12,6 +14,7 @@ public class LinkedListTest {
 
 	public static void main(String[] args) {
 		
+		final Logger logger = Logger.getLogger(LinkedListTest.class.getName());	
 		
 		//setting the linkedlist
 		LinkedList<Double> linkedList = new LinkedList<Double>();
@@ -27,171 +30,171 @@ public class LinkedListTest {
 		third.setNext(fourth); 
 		
 		//iterating the linkedlist
-		System.out.print("Original LinkedList " );
+		logger.info("Original LinkedList " );
 		linkedList.printList();
-		System.out.println(" ");
+		logger.info("\n");
 		
 		int size =linkedList.IterativeSize();
-		System.out.print("Original LinkedList size iteratively: " + size);	
-		System.out.println(" ");
+		logger.info("Original LinkedList size iteratively: " + size);	
+		logger.info("\n");
 		
 		size = linkedList.RecursiveSize();
-		System.out.print("Original LinkedList size recursively: " + size);
-		System.out.println(" ");
+		logger.info("Original LinkedList size recursively: " + size);
+		logger.info("\n");
 		
 		
 		//Adding new element at the start
-		System.out.print("New LinkedList after addition at the start ");
+		logger.info("New LinkedList after addition at the start ");
 		linkedList.push(-1.0);
 		linkedList.printList();
-		System.out.println(" "); 
+		logger.info("\n"); 
 		 size =linkedList.IterativeSize();
-		System.out.print("Original LinkedList size iteratively: " + size);	
-		System.out.println(" ");
+		logger.info("Original LinkedList size iteratively: " + size);	
+		logger.info("\n");
 		
 		size = linkedList.RecursiveSize();
-		System.out.print("Original LinkedList size recursively: " + size);
-		System.out.println(" ");
+		logger.info("Original LinkedList size recursively: " + size);
+		logger.info("\n");
 		
 		//Adding new element  in between 1 & 2
-		System.out.print("New LinkedList after addition in between ");
+		logger.info("New LinkedList after addition in between ");
 		linkedList.insertAfter(0.5, 1.0);
 		linkedList.printList();
-		System.out.println(" "); 
+		logger.info("\n"); 
 		 size =linkedList.IterativeSize();
-		System.out.print("Original LinkedList size iteratively ");	
-		System.out.println(" ");
+		logger.info("Original LinkedList size iteratively: " + size);	
+		logger.info("\n");
 		
 		size = linkedList.RecursiveSize();
-		System.out.print("Original LinkedList size recursively: " + size);
-		System.out.println(" ");
+		logger.info("Original LinkedList size recursively: " + size);
+		logger.info("\n");
 		
 		
 		
 		//Adding new element at the last position
-		System.out.print("New LinkedList New LinkedList after addition at last position: ");
+		logger.info("New LinkedList New LinkedList after addition at last position: ");
 		linkedList.insertAfter(3.5, 3.0);
 		linkedList.printList();
-		System.out.println(" "); 
+		logger.info("\n"); 
 		 size =linkedList.IterativeSize();
-		System.out.print("Original LinkedList size iteratively: " + size);	
-		System.out.println(" ");
+		logger.info("Original LinkedList size iteratively: " + size);	
+		logger.info("\n");
 		
 		size = linkedList.RecursiveSize();
-		System.out.print("Original LinkedList size recursively: " + size);
-		System.out.println(" ");
+		logger.info("Original LinkedList size recursively: " + size);
+		logger.info("\n");
 		
 		
 		//Adding new element in between -1 & 0
-		System.out.print("New LinkedList after addition in between ");
+		logger.info("New LinkedList after addition in between ");
 		linkedList.insertAfter(-0.5, -1.0);
 		linkedList.printList();
-		System.out.println(" "); 
+		logger.info("\n"); 
 		 size =linkedList.IterativeSize();
-		System.out.print("Original LinkedList size iteratively ");	
-		System.out.println(" ");
+		logger.info("Original LinkedList size iteratively ");	
+		logger.info("\n");
 		
 		size = linkedList.RecursiveSize();
-		System.out.print("Original LinkedList size recursively: ");
-		System.out.println(" ");
+		logger.info("Original LinkedList size recursively: ");
+		logger.info("\n");
 		
 		
 		// Deleting a element in the LinkedList
-		System.out.print("New LinkedList after deletion in between: ") ;
+		logger.info("New LinkedList after deletion in between: ") ;
 		linkedList.deleteNode(2.0);
 		linkedList.printList();
-		System.out.println(" ");  
+		logger.info("\n");  
 		 size =linkedList.IterativeSize();
-		System.out.print("Original LinkedList size iteratively: " + size);	
-		System.out.println(" ");
+		logger.info("Original LinkedList size iteratively: " + size);	
+		logger.info("\n");
 		
 		size = linkedList.RecursiveSize();
-		System.out.print("Original LinkedList size recursively: " + size);
-		System.out.println(" ");
+		logger.info("Original LinkedList size recursively: " + size);
+		logger.info("\n");
 		
 		
 		
 		// Deleting a element at front of the LinkedList
-		System.out.print("New LinkedList after deletion at the beginning: " );
+		logger.info("New LinkedList after deletion at the beginning: " );
 		linkedList.deleteNode(-1.0);
 		linkedList.printList();
-		System.out.println(" ");  
+		logger.info("\n");  
 		 size =linkedList.IterativeSize();
-		System.out.print("Original LinkedList size iteratively: " + size);	
-		System.out.println(" ");
+		logger.info("Original LinkedList size iteratively: " + size);	
+		logger.info("\n");
 		
 		size = linkedList.RecursiveSize();
-		System.out.print("Original LinkedList size recursively: " + size);
-		System.out.println(" ");
+		logger.info("Original LinkedList size recursively: " + size);
+		logger.info("\n");
 		
 		
 		// Deleting a element at the last position of the LinkedList
-		System.out.print("New LinkedList after deletion at the last position: ");
+		logger.info("New LinkedList after deletion at the last position: ");
 		linkedList.deleteNode(3.5);
 		linkedList.printList();
-		System.out.println(" "); 
+		logger.info("\n"); 
 		 size =linkedList.IterativeSize();
-		System.out.print("Original LinkedList size iteratively: " + size);	
-		System.out.println(" ");
+		logger.info("Original LinkedList size iteratively: " + size);	
+		logger.info("\n");
 		
 		size = linkedList.RecursiveSize();
-		System.out.print("Original LinkedList size recursively: " + size);
-		System.out.println(" ");
+		logger.info("Original LinkedList size recursively: " + size);
+		logger.info(" ");
 		
 		//swapNode
 		linkedList.swapNodes(0.0, 0.5);
-		System.out.print(" LinkedList after swapping the nodes  (0.0, 0.5): ");
+		logger.info("LinkedList after swapping the nodes  (0.0, 0.5): ");
 		linkedList.printList();
-		System.out.println(" ");
+		logger.info("\n");
 		
 		
 		linkedList.swapNodes(0.0, 3.0);
-		System.out.print(" LinkedList after swapping the nodes (0.0, 3.0): ");
+		logger.info("LinkedList after swapping the nodes (0.0, 3.0): ");
 		linkedList.printList();
-		System.out.println(" ");
+		logger.info("\n");
 		
 		
 		linkedList.swapNodes(-0.5, 0.0);
-		System.out.print(" LinkedList after swapping the nodes (-0.5, 0.0): ");
+		logger.info("LinkedList after swapping the nodes (-0.5, 0.0): ");
 		linkedList.printList();
-		System.out.println(" ");
+		logger.info("\n");
 		
 //		linkedList.reverseList();
-//		System.out.print(" LinkedList after reversal iteratively: ");
+//		logger.info(" LinkedList after reversal iteratively: ");
 //		linkedList.printList();
-//		System.out.println(" "); 
+//		logger.info("\n"); 
 		
 		
 		Node prev = null;
 		linkedList.reverseList(linkedList.getHead(), prev);
-		System.out.print(" LinkedList after reversal recursively: ");
+		logger.info("LinkedList after reversal recursively: ");
 		linkedList.printList();
-		System.out.println(" "); 
+		logger.info("\n"); 
 		
 		
 		// Merge sortedLinkList
 		Double[] data1 = {-20.0,-4.0, -2.0 , 5.0 ,15.0};
 		LinkedList<Double> l1 = linkedList.createLinkedListArray(data1);
-		System.out.print(" LinkedList L1 after creation from array: ");
+		logger.info("LinkedList L1 after creation from array: ");
 		l1.printList(); 
-		System.out.println(" "); 
+		logger.info("\n"); 
 		
 		Double[] data2 = {2.0,3.0,20.0,25.0};
 		LinkedList<Double> l2 = linkedList.createLinkedListArray(data2);
-		System.out.print(" LinkedList L2 after creation from array: ");
+		logger.info("LinkedList L2 after creation from array: ");
 		l2.printList(); 
-		System.out.println(" "); 
+		logger.info("\n"); 
 		
 		
 //		LinkedList<Double> l = linkedList.mergeTwoSortedLinkList(l1, l2);
-//		System.out.print(" LinkedList L after merging with L1 & L2: ");
+//		logger.info(" LinkedList L after merging with L1 & L2: ");
 //		l.printList(); 
-//		System.out.println(" "); 
+//		logger.info("\n"); 
 		
 		LinkedList<Double> ll = linkedList.sortedMerge(l1, l2);
-		System.out.print(" LinkedList LL after sort merging with L1 & L2: ");
+		logger.info("LinkedList LL after sort merging with L1 & L2: ");
 		ll.printList(); 
-		System.out.println(" "); 
+		logger.info("\n"); 
 		
 	}
 }

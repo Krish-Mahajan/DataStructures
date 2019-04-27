@@ -1,5 +1,7 @@
 package datastructure.linkedlist;
 
+import org.apache.log4j.Logger;
+
 /**
  * @author krish.mahajan@gmail.com
  * @param <T>
@@ -7,6 +9,9 @@ package datastructure.linkedlist;
  */
 public class LinkedList<T extends Comparable<T>> {
 
+	
+	final static Logger logger = Logger.getLogger(LinkedList.class.getName());	
+	
 	private Node<T> head; // head of list
 
 	public Node<T> getHead() {
@@ -66,7 +71,6 @@ public class LinkedList<T extends Comparable<T>> {
 			this.next = next;
 		}
 
-		@Override
 		public int compareTo(Node<T> o) {
 			return this.getData().compareTo(o.getData());
 	
@@ -77,9 +81,9 @@ public class LinkedList<T extends Comparable<T>> {
 	public void printList() {
 		Node<T> start = this.getHead();
 		while (start != null) {
-			System.out.print(start.getData());
+			logger.info(start.getData().toString()+ " ");
 			start = start.getNext();
-			System.out.print(" ");
+			//logger.info(" ");
 		}
 	}
 
@@ -121,7 +125,7 @@ public class LinkedList<T extends Comparable<T>> {
 			currNext = curr.getNext();
 		}
 		if (curr == null) {
-			System.out.print("LinkedList has no Node with the value :" + insertAfterNodeData);
+			logger.info("LinkedList has no Node with the value :" + insertAfterNodeData);
 		} else {
 			curr.setNext(new_node);
 			new_node.setNext(currNext);
@@ -158,7 +162,7 @@ public class LinkedList<T extends Comparable<T>> {
 
 		}
 		if (curr == null) {
-			System.out.println("Key was not found");
+			logger.info("Key was not found");
 		}
 	}
 
@@ -169,7 +173,7 @@ public class LinkedList<T extends Comparable<T>> {
 	 */
 	public int IterativeSize() {
 		if (this.getHead() == null) {
-			System.out.println("No linkedList found");
+			logger.info("No linkedList found");
 			return 0;
 		}
 		Node<T> curr = this.getHead();
@@ -211,7 +215,7 @@ public class LinkedList<T extends Comparable<T>> {
 	public void swapNodes(T key1, T key2) {
 
 		if ((Double) key1 == null && (Double) key2 == null) {
-			System.out.println("Keys cannot be null");
+			logger.info("Keys cannot be null");
 			return;
 		}
 		Node<T> currNode = this.getHead();
@@ -239,7 +243,7 @@ public class LinkedList<T extends Comparable<T>> {
 
 		// check if any of the keyNode is not null
 		if (key1Node == null || key2Node == null) {
-			System.out.println("One of the key was not found in the LinkedList");
+			logger.info("One of the key was not found in the LinkedList");
 			return;
 		}
 
@@ -317,7 +321,7 @@ public class LinkedList<T extends Comparable<T>> {
 
 		// Both the list shouldn't be empty
 		if (l1.getHead() == null & l2.getHead() == null) {
-			System.out.println("Both the list cannot be empty");
+			logger.info("Both the list cannot be empty");
 		}
 
 		// if anyone of the list is empty , simply return other

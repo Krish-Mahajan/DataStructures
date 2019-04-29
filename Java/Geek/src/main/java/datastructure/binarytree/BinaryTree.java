@@ -89,9 +89,96 @@ public class BinaryTree<T extends Comparable<T>> {
 		System.out.print(n.getKey() + " ");	
 		return;
 		
+	} 
+	
+	
+	/**
+	 * Insertion of element in BinarySearchTree
+	 * @param key
+	 */
+	public void insert(T key) {
+		try {
+			this.insertHelp(this.getRoot(), key);
+		} catch (RootNotSetException e) {
+			this.setRoot(key);
+			logger.info("Initialized Root of the tree");
+			logger.info("\n");
+		}
 	}
-}
+	
+	public void insertHelp(Node<T> n , T key) {
+		
+		if(n.getKey().compareTo(key) < 0)
+		{
+			if(n.getRightChild() != null) insertHelp(n.getRightChild(), key);
+			else 
+			{	
+				n.setRightChild(key);
+				return;
+			}
+			
+		}
+		else if(n.getKey().compareTo(key) == 0)
+		{
+			logger.info("Duplicate Key");
+			return;
+		}
+		else
+		{
+			if(n.getLeftChild() !=null )insertHelp(n.getLeftChild(), key);
+			else
+			{
+				n.setLeftChild(key);
+				return;
+			}
+		}
+	}
+	
 
+	/**
+	 * Create Binary Search Tree from Array elements
+	 * @param elements
+	 */
+	public void insertFromArray(T[] elements) {
+		for(int i = 0 ;i < elements.length;i++)
+		{
+			this.insert(elements[i]);
+		}
+	
+	}
+	
+	
+	/**
+	 * Search for a element in Binary Search Tree
+	 */
+	public boolean searchBST(T key) {
+		
+		try {
+			return this.searchBSTHelper(this.getRoot(),key);
+		} catch (RootNotSetException e) {
+			logger.debug("Tree Empty");
+			e.printStackTrace();
+			return false;
+		}
+			
+	}
+
+	private boolean searchBSTHelper(Node<T> node, T key) {
+		
+		if( node == null) return false;
+		
+		if(node.getKey().compareTo(key) == 0) return true;
+		 
+		if( node.getKey().compareTo(key) < 0)  return this.searchBSTHelper(node.getRightChild(), key);
+		
+		else if(node.getKey().compareTo(key) > 0) return this.searchBSTHelper(node.getLeftChild(), key);
+		
+		return false;
+		
+	}
+	
+	
+}
 /**
  * Node class to store nodes of a Binary Tree
  * 

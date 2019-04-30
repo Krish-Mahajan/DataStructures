@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 
 public class BinaryTreeTest {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws RootNotSetException {
 
 		
 		final  Logger logger = Logger.getLogger(BinaryTreeTest.class.getName());
@@ -87,7 +87,25 @@ public class BinaryTreeTest {
 		logger.info("\n");
 	
 		
+		logger.info("Inserting new elements in Binary Tree to test Inorder Successor\n");
+		BinaryTree<Double> treeI = new BinaryTree<Double>();
+		Double data[] = { 20.0,8.0, 22.0, 4.0 , 12.0, 10.0, 14.0};
+		treeI.insertFromArray(data);
+		logger.info(" INORDER TRAVERSAL OF THE TREE AFTER INSERTION FROM ARRAY: ");
+		try {
+			tree1.inorderTraversal(treeI);
+			logger.info("\n");
+		} catch (RootNotSetException e) {
+			e.printStackTrace();
+		}
 		
+		logger.info("INORDER SUCCESSOR OF ELEMENT " + treeI.getRoot().getLeftChild().getKey() + " : ");
+		try {
+			System.out.println(treeI.inorderSuccessor(treeI.getRoot().getLeftChild()));
+		} catch (RootNotSetException e) {
+			
+			e.printStackTrace();
+		}
 		
 	}
 }

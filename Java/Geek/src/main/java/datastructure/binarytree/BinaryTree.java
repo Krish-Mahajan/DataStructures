@@ -178,6 +178,66 @@ public class BinaryTree<T extends Comparable<T>> {
 	}
 	
 	
+	/**
+	 * REMEMBER
+	 * Check if the given Binary Tree is Binary Search Tree
+	 * @return
+	 */
+	public boolean checkIfBST() {
+		try {
+			return checkIfBST_helper(this.getRoot() ,Integer.MIN_VALUE,Integer.MAX_VALUE);
+		} catch (RootNotSetException e) {
+			logger.debug("Tree list is empty");
+			return false;
+		}
+	}
+	
+	private boolean checkIfBST_helper(Node<T> node,int minValue,int maxValue) {
+		
+		if(node == null) return true;
+		
+		int node_key = (Integer)node.getKey();
+		
+		if(node_key < minValue|| node_key > maxValue) return false; 
+		
+		return(checkIfBST_helper(node.getLeftChild(), minValue, (Integer) node.getKey()) && checkIfBST_helper(node.getRightChild(), (Integer) node.getKey(), maxValue));
+		
+		
+	}
+	
+	
+	
+	/**
+	 * Find inorder successor of a node in Binary Tree
+	 * @param n
+	 * @return
+	 */
+	public T inorderSuccessor(Node<T> n) {
+		if(n.getRightChild() !=null )
+		{
+			return this.iterateDown(n.getRightChild());
+		}
+		else 
+		{
+			return this.iterateUp(n.getParent() , n.getKey());
+		}
+	}
+	
+	
+	private T iterateUp(Node<T> n, T KEY) {
+		if(n.getParent() != null && n.getKey().compareTo(KEY) < 0) return iterateUp(n.getParent(), KEY);
+		else return n.getKey();		
+	
+	}
+
+	public T iterateDown(Node<T> n) {
+	if(n.getLeftChild() != null) return iterateDown(n.getLeftChild());
+	else return n.getKey();
+	
+	}
+	
+	
+	
 }
 /**
  * Node class to store nodes of a Binary Tree
@@ -189,11 +249,13 @@ public class BinaryTree<T extends Comparable<T>> {
 class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 
 	private T key;
-	private Node<T> leftChild, rightChild;
+	private Node<T> leftChild, rightChild, parent;
+
+
 
 	public Node(T item) {
 		key = item;
-		leftChild = rightChild = null;
+		parent = leftChild = rightChild = null;
 	}
 
 	public T getKey() {
@@ -206,14 +268,20 @@ class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 
 	public Node<T> getRightChild() {
 		return this.rightChild;
+	} 
+	
+	public Node<T> getParent() {
+		return this.parent;
 	}
 
 	public void setLeftChild(T leftChild) {
 		this.leftChild = new Node<T>(leftChild);
+		this.leftChild.parent = this;
 	}
 
 	public void setRightChild(T rightChild) {
 		this.rightChild = new Node<T>(rightChild);
+		this.rightChild.parent = this;
 	}
 
 	public int compareTo(Node<T> o) {

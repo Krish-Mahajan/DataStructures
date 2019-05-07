@@ -83,6 +83,23 @@ public class BinaryTreeTest {
         "Deleting element " + treeI.getRoot().getRightChild().getKey() + " from the tree\n");
     treeI.deleteNode(treeI.getRoot().getRightChild());
     logger.info(" INORDER TRAVERSAL OF THE TREE AFTER DELETION FROM ARRAY: ");
-    tree1.inorderTraversal(treeI);
+    tree1.inorderTraversal(treeI); 
+    
+    
+    BinaryTree<Double> tree4 = new BinaryTree<Double>();
+    tree4.setRoot(1.0);
+    tree4.getRoot().setLeftChild(2.0);
+    tree4.getRoot().setRightChild(3.0);
+    tree4.getRoot().getLeftChild().setLeftChild(4.0);
+    tree4.getRoot().getLeftChild().setRightChild(5.0);
+    tree4.getRoot().getRightChild().setLeftChild(6.0);
+    tree4.getRoot().getRightChild().setRightChild(7.0);
+    
+    tree4.getRoot().getRightChild().getLeftChild().setRightChild(8.0);
+    tree4.getRoot().getRightChild().getRightChild().setRightChild(9.0);
+
+    logger.info("\n");
+    logger.info("VERTICAL ORDER TRAVERSAL\n"); 
+    tree4.getVerticalOrder();
   }
 }

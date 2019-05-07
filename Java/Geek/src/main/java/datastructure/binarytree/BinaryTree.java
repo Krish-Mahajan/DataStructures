@@ -1,5 +1,10 @@
 package datastructure.binarytree;
 
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.Vector;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -244,6 +249,51 @@ public class BinaryTree<T extends Comparable<T>> {
     } catch (RootNotSetException e) {
       logger.debug("TREE EMPTY");
       e.printStackTrace();
+    }
+  }
+
+  /**
+   * Helper function to print binary tree vertically using preorder traversal
+   *
+   * @param root
+   * @param hd
+   * @param m
+   */
+  private void getVerticalOrder_help(Node<T> root, int hd, TreeMap<Integer, Vector<Node<T>>> m) {
+
+    if (root == null) return;
+
+    Vector<Node<T>> get = m.get(hd);
+
+    if (get == null) {
+      get = new Vector<Node<T>>();
+      get.add(root);
+    } 
+    else get.add(root);
+    
+    m.put(hd, get);
+
+    getVerticalOrder_help(root.getLeftChild(), hd - 1, m);
+
+    getVerticalOrder_help(root.getRightChild(), hd + 1, m);
+  }
+
+  /**
+   * Public function to print Binary Tree Vertically
+   *
+   * @throws RootNotSetException
+   */
+  public void getVerticalOrder() throws RootNotSetException {
+
+    TreeMap<Integer, Vector<Node<T>>> tm = new TreeMap<Integer, Vector<Node<T>>>();
+    getVerticalOrder_help(this.getRoot(), 0, tm);
+
+    for (Entry<Integer, Vector<Node<T>>> entry : tm.entrySet()) {
+
+      for (Node<T> v : entry.getValue()) {
+        System.out.print(v.getKey() + " ");
+      }
+      System.out.println("\n");
     }
   }
 }

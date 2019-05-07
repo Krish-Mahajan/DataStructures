@@ -48,7 +48,8 @@ public class MinHeap<T extends Comparable<T>> {
    * @param pos : Position of the child node
    */
   public T getLeftChild(int pos) {
-    return this.heap[2 * pos];
+   if(2*pos <= this.size) return this.heap[2 * pos];
+   else return null;
   }
 
   /**
@@ -156,8 +157,9 @@ public class MinHeap<T extends Comparable<T>> {
   }
 
   public T[] sort(Class<T> clazz) {
-    @SuppressWarnings("unchecked")
+    
     int size = this.size;
+    @SuppressWarnings("unchecked")
     T[] arr = (T[]) Array.newInstance(clazz, size);
     for (int i = 1; i <= size; i++) {
         T element = this.remove();

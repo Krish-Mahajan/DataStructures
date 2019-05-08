@@ -296,6 +296,29 @@ public class BinaryTree<T extends Comparable<T>> {
       System.out.println("\n");
     }
   }
+  
+  /**
+   * REMEMBER
+   * Create Binary Search Tree from Sorted Array
+   * https://www.geeksforgeeks.org/sorted-array-to-balanced-bst/
+   * @param arr
+   */
+  public void sortedArrayToBalancedBST(T[] arr) {
+   
+	  this.sortedArrayToBalancedBST_help(arr ,0 , arr.length -1);
+	
+  }
+  
+  
+  private void sortedArrayToBalancedBST_help(T[] arr, int start , int end) {
+	  if(start > end) return; 
+	  int mid = (start + end)/2;
+	  this.insert(arr[mid]);
+	  sortedArrayToBalancedBST_help(arr,  start ,mid -1);
+	  sortedArrayToBalancedBST_help(arr, mid+1,end);
+	  
+	  
+  }
 }
 
 /**

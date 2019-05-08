@@ -101,5 +101,11 @@ public class BinaryTreeTest {
     logger.info("\n");
     logger.info("VERTICAL ORDER TRAVERSAL\n"); 
     tree4.getVerticalOrder();
+    
+    Double nums_5[] = {1.0,10.0,11.0,50.0,70.0,71.0,72.0,100.0,101.0};
+    BinaryTree<Double> tree5 = new BinaryTree<Double>();
+    logger.info("BALANCED BINARY TREE FROM SORTED ARRAY: " + nums_5.toString() +"\n" );
+    tree5.sortedArrayToBalancedBST(nums_5);
+    tree5.inorderTraversal(tree5);
   }
 }

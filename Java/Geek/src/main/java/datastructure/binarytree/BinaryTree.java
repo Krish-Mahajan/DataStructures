@@ -1,6 +1,9 @@
 package datastructure.binarytree;
 
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.Map.Entry;
+import java.lang.reflect.Array;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
@@ -319,6 +322,44 @@ public class BinaryTree<T extends Comparable<T>> {
 	  
 	  
   }
+  
+  
+  /**
+   * Convert BinaryTree to Binary Search Tree while preserving the structure
+   * https://www.geeksforgeeks.org/binary-tree-to-binary-search-tree-conversion/
+   * @param tree
+   * @throws RootNotSetException
+   */
+  public void binaryTreetoBST(BinaryTree<T> tree) throws RootNotSetException {
+	 LinkedList<Double> ll = new LinkedList<Double>();
+	  binaryTreetoBST_CreateList(tree.getRoot(),ll);
+	  Collections.sort(ll);
+	  binaryTreetoBST_CopyList(tree.getRoot(), ll);
+  } 
+  
+  private void binaryTreetoBST_CreateList(Node<T> node,LinkedList<Double> ll){
+	  if(node == null) return;
+	  binaryTreetoBST_CreateList(node.getLeftChild(), ll);
+	  ll.add((Double) node.getKey());
+	  binaryTreetoBST_CreateList(node.getRightChild(),ll);
+	  
+}
+  
+  @SuppressWarnings("unchecked")
+private void binaryTreetoBST_CopyList(Node<T> node,LinkedList<Double> ll){
+	  if(node == null) return ;
+	  binaryTreetoBST_CopyList(node.getLeftChild(), ll);
+	  node.setKey((T) ll.poll());
+	  binaryTreetoBST_CopyList(node.getRightChild(),ll);
+  
+	 
+  }
+
+public <T> T[] getArray(Class<T> clazz) {
+	    @SuppressWarnings("unchecked")
+	    T[] arr = (T[]) Array.newInstance(clazz);
+	    return arr;
+	  }
 }
 
 /**

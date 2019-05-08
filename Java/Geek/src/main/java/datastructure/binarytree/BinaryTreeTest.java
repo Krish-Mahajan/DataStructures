@@ -107,5 +107,24 @@ public class BinaryTreeTest {
     logger.info("BALANCED BINARY TREE FROM SORTED ARRAY: " + nums_5.toString() +"\n" );
     tree5.sortedArrayToBalancedBST(nums_5);
     tree5.inorderTraversal(tree5);
+    logger.info("\n");
+    logger.info("\n");
+    
+    BinaryTree<Double> tree6 = new BinaryTree<Double>();
+    tree6.setRoot(10.0);
+    tree6.getRoot().setLeftChild(2.0);
+    tree6.getRoot().setRightChild(7.0);
+    tree6.getRoot().getLeftChild().setLeftChild(8.0);
+    tree6.getRoot().getLeftChild().setRightChild(4.0);
+    
+    logger.info("BINARY TREE TO BINARY SEARCH TREE\n");
+    logger.info("Original Binary Tree\n");
+    tree6.inorderTraversal(tree6); 
+    tree6.binaryTreetoBST(tree6);
+    logger.info("\n");
+    logger.info("Binary Search Tree after conversion\n");
+    tree6.inorderTraversal(tree6); 
+    
+
   }
 }

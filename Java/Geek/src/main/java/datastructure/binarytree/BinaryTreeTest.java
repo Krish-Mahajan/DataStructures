@@ -125,6 +125,16 @@ public class BinaryTreeTest {
     logger.info("Binary Search Tree after conversion\n");
     tree6.inorderTraversal(tree6); 
     
-
+    logger.info("\n");
+    logger.info("\n");
+    logger.info("DIAMETER OF NODES OF BINARY TREE \n");
+    tree4.diameterBinaryTree(); 
+    
+    
+    logger.info("\n");
+    logger.info("\n");
+    logger.info("LEVEL OF NODES OF BINARY TREE \n");
+    tree4.width();
+    
   }
 }

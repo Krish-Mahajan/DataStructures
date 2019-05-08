@@ -1,10 +1,10 @@
 package datastructure.binarytree;
 
+import java.lang.reflect.Array;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map.Entry;
-import java.lang.reflect.Array;
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
 
@@ -271,9 +271,8 @@ public class BinaryTree<T extends Comparable<T>> {
     if (get == null) {
       get = new Vector<Node<T>>();
       get.add(root);
-    } 
-    else get.add(root);
-    
+    } else get.add(root);
+
     m.put(hd, get);
 
     getVerticalOrder_help(root.getLeftChild(), hd - 1, m);
@@ -299,120 +298,180 @@ public class BinaryTree<T extends Comparable<T>> {
       System.out.println("\n");
     }
   }
-  
+
   /**
-   * REMEMBER
-   * Create Binary Search Tree from Sorted Array
+   * REMEMBER Create Binary Search Tree from Sorted Array
    * https://www.geeksforgeeks.org/sorted-array-to-balanced-bst/
+   *
    * @param arr
    */
   public void sortedArrayToBalancedBST(T[] arr) {
-   
-	  this.sortedArrayToBalancedBST_help(arr ,0 , arr.length -1);
-	
+
+    this.sortedArrayToBalancedBST_help(arr, 0, arr.length - 1);
   }
-  
-  
-  private void sortedArrayToBalancedBST_help(T[] arr, int start , int end) {
-	  if(start > end) return; 
-	  int mid = (start + end)/2;
-	  this.insert(arr[mid]);
-	  sortedArrayToBalancedBST_help(arr,  start ,mid -1);
-	  sortedArrayToBalancedBST_help(arr, mid+1,end);
-	  
-	  
+
+  private void sortedArrayToBalancedBST_help(T[] arr, int start, int end) {
+    if (start > end) return;
+    int mid = (start + end) / 2;
+    this.insert(arr[mid]);
+    sortedArrayToBalancedBST_help(arr, start, mid - 1);
+    sortedArrayToBalancedBST_help(arr, mid + 1, end);
   }
-  
-  
+
   /**
    * Convert BinaryTree to Binary Search Tree while preserving the structure
    * https://www.geeksforgeeks.org/binary-tree-to-binary-search-tree-conversion/
+   *
    * @param tree
    * @throws RootNotSetException
    */
   public void binaryTreetoBST(BinaryTree<T> tree) throws RootNotSetException {
-	 LinkedList<Double> ll = new LinkedList<Double>();
-	  binaryTreetoBST_CreateList(tree.getRoot(),ll);
-	  Collections.sort(ll);
-	  binaryTreetoBST_CopyList(tree.getRoot(), ll);
-  } 
-  
-  private void binaryTreetoBST_CreateList(Node<T> node,LinkedList<Double> ll){
-	  if(node == null) return;
-	  binaryTreetoBST_CreateList(node.getLeftChild(), ll);
-	  ll.add((Double) node.getKey());
-	  binaryTreetoBST_CreateList(node.getRightChild(),ll);
-	  
-}
-  
+    LinkedList<Double> ll = new LinkedList<Double>();
+    binaryTreetoBST_CreateList(tree.getRoot(), ll);
+    Collections.sort(ll);
+    binaryTreetoBST_CopyList(tree.getRoot(), ll);
+  }
+
+  private void binaryTreetoBST_CreateList(Node<T> node, LinkedList<Double> ll) {
+    if (node == null) return;
+    binaryTreetoBST_CreateList(node.getLeftChild(), ll);
+    ll.add((Double) node.getKey());
+    binaryTreetoBST_CreateList(node.getRightChild(), ll);
+  }
+
   @SuppressWarnings("unchecked")
-private void binaryTreetoBST_CopyList(Node<T> node,LinkedList<Double> ll){
-	  if(node == null) return ;
-	  binaryTreetoBST_CopyList(node.getLeftChild(), ll);
-	  node.setKey((T) ll.poll());
-	  binaryTreetoBST_CopyList(node.getRightChild(),ll);
-  
-	 
+  private void binaryTreetoBST_CopyList(Node<T> node, LinkedList<Double> ll) {
+    if (node == null) return;
+    binaryTreetoBST_CopyList(node.getLeftChild(), ll);
+    node.setKey((T) ll.poll());
+    binaryTreetoBST_CopyList(node.getRightChild(), ll);
   }
 
-public <T> T[] getArray(Class<T> clazz) {
-	    @SuppressWarnings("unchecked")
-	    T[] arr = (T[]) Array.newInstance(clazz);
-	    return arr;
-	  }
-}
-
-/**
- * Node class to store nodes of a Binary Tree
- *
- * @author krish.mahajan@ibm.com
- */
-class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
-
-  private T key;
-  private Node<T> leftChild, rightChild, parent;
-
-  public Node(T item) {
-    key = item;
-    parent = leftChild = rightChild = null;
+  public <T> T[] getArray(Class<T> clazz) {
+    @SuppressWarnings("unchecked")
+    T[] arr = (T[]) Array.newInstance(clazz);
+    return arr;
   }
 
-  public T getKey() {
-    return this.key;
+  public void diameterBinaryTree() throws RootNotSetException {
+    HashMap<Node<T>, Integer> map = new HashMap<Node<T>, Integer>();
+    map = diameterBinaryTree(this.getRoot(), map);
+    for (Entry<BinaryTree<T>.Node<T>, Integer> en : map.entrySet()) {
+      System.out.println("Node is " + en.getKey().getKey() + ",diameter is : " + en.getValue());
+    }
   }
 
-  public void setKey(T key) {
-    this.key = key;
+  /**
+   * REMEMBER Function to calculate diameter of Binary Tree
+   * https://www.geeksforgeeks.org/diameter-of-a-binary-tree/
+   *
+   * @param node
+   * @param map
+   */
+  public HashMap<Node<T>, Integer> diameterBinaryTree(Node<T> node, HashMap<Node<T>, Integer> map) {
+
+    if (node == null) return null;
+
+    int height = diameterUtil(node);
+    map.put(node, height);
+    diameterBinaryTree(node.getLeftChild(), map);
+    diameterBinaryTree(node.getRightChild(), map);
+
+    return map;
   }
 
-  public Node<T> getLeftChild() {
-    return this.leftChild;
+  private int diameterUtil(Node<T> node) {
+
+    int l_height = height(node.getLeftChild());
+    int r_height = height(node.getRightChild());
+
+    return l_height + r_height;
   }
 
-  public Node<T> getRightChild() {
-    return this.rightChild;
+  private int height(Node<T> node) {
+    if (node == null) return 0;
+    else {
+      return (1 + Math.max(height(node.getLeftChild()), height(node.getRightChild())));
+    }
   }
 
-  public Node<T> getParent() {
-    return this.parent;
+  /**
+   * REMEMBER
+   * https://www.geeksforgeeks.org/maximum-width-of-a-binary-tree/
+   * Find width of a Binary Tree
+   * @throws RootNotSetException
+   */
+  public void width() throws RootNotSetException {
+    HashMap<BinaryTree<T>.Node<T>, Integer> map = new HashMap<Node<T>, Integer>();
+    map = width(this.getRoot(), 1,map); 
+    for (Entry<BinaryTree<T>.Node<T>, Integer> en : map.entrySet()) {
+        System.out.println("Node is " + en.getKey().getKey() + ",level is : " + en.getValue());
+      }
   }
 
-  public void setLeftChild(T leftChild) {
-    if (leftChild != null) {
-      this.leftChild = new Node<T>(leftChild);
-      this.leftChild.parent = this;
-    } else this.leftChild = null;
+  private HashMap<Node<T>, Integer> width(Node<T> node, int level,HashMap<Node<T>, Integer> map) {
+    if (node == null) return null;
+    
+    map.put(node,level);
+    width(node.getLeftChild(),level + 1,map);
+    width(node.getRightChild(),level + 1,map);
+    return map;
   }
 
-  public void setRightChild(T rightChild) {
 
-    if (rightChild != null) {
-      this.rightChild = new Node<T>(rightChild);
-      this.rightChild.parent = this;
-    } else this.rightChild = null;
-  }
 
-  public int compareTo(Node<T> o) {
-    return this.getKey().compareTo(o.getKey());
+  /**
+   * Node class to store nodes of a Binary Tree
+   *
+   * @author krish.mahajan@ibm.com
+   */
+  class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
+
+    private T key;
+    private Node<T> leftChild, rightChild, parent;
+
+    public Node(T item) {
+      key = item;
+      parent = leftChild = rightChild = null;
+    }
+
+    public T getKey() {
+      return this.key;
+    }
+
+    public void setKey(T key) {
+      this.key = key;
+    }
+
+    public Node<T> getLeftChild() {
+      return this.leftChild;
+    }
+
+    public Node<T> getRightChild() {
+      return this.rightChild;
+    }
+
+    public Node<T> getParent() {
+      return this.parent;
+    }
+
+    public void setLeftChild(T leftChild) {
+      if (leftChild != null) {
+        this.leftChild = new Node<T>(leftChild);
+        this.leftChild.parent = this;
+      } else this.leftChild = null;
+    }
+
+    public void setRightChild(T rightChild) {
+
+      if (rightChild != null) {
+        this.rightChild = new Node<T>(rightChild);
+        this.rightChild.parent = this;
+      } else this.rightChild = null;
+    }
+
+    public int compareTo(Node<T> o) {
+      return this.getKey().compareTo(o.getKey());
+    }
   }
 }

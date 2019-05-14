@@ -134,7 +134,25 @@ public class BinaryTreeTest {
     logger.info("\n");
     logger.info("\n");
     logger.info("LEVEL OF NODES OF BINARY TREE \n");
-    tree4.width();
+    tree4.width(); 
     
+    
+    logger.info("\n");
+    logger.info("\n");
+    logger.info("LEVEL ORDER TRAVERSAL OF BINARY TREE \n");
+    tree4.levelOrderTreeTraversal(tree4.getRoot());;
+    
+    
+    logger.info("\n");
+    logger.info("\n");
+    logger.info(" NODES AT DISTANCE 3 FROM ROOT \n");
+    tree4.nodesAtKDistance(tree4.getRoot(), 3);
+    
+    
+
+    logger.info("\n");
+    logger.info("\n");
+    logger.info("ANCESTORS OF NODE 9 in this BINARY TREE \n");
+    tree4.findAncestors(tree4.getRoot(),9.0);
   }
 }

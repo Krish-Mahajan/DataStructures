@@ -39,9 +39,8 @@ public class BinaryTree<T extends Comparable<T>> {
   }
 
   /**
-   * inorderTraversal for binaryTree
-   *
-   * @param tree
+   * REMEMBER
+   * INORDER TRAVERSAL FOR BINARY TREE
    */
   public void inorderTraversal(BinaryTree<T> tree) throws RootNotSetException {
     if (tree.getRoot() == null) throw new RootNotSetException();
@@ -61,7 +60,10 @@ public class BinaryTree<T extends Comparable<T>> {
     return;
   }
 
-  /** Preorder Traversal for Binary Tree */
+  /** 
+   * REMEMBER
+   * PREORDER TRAVERSAL FOR BINARY TREE
+   * */
   public void preorderTraversal(BinaryTree<T> tree) throws RootNotSetException {
     if (tree.getRoot() == null) throw new RootNotSetException();
     this.preorderTraversalNode(tree.getRoot());
@@ -75,7 +77,10 @@ public class BinaryTree<T extends Comparable<T>> {
     return;
   }
 
-  /** postorder Traversal for Binary Tree */
+  /** 
+   * REMEMBER
+   * POSTORDER TRAVERSAL FOR BINARY TREE 
+   * */
   public void postorderTraversal(BinaryTree<T> tree) throws RootNotSetException {
     if (tree.getRoot() == null) throw new RootNotSetException();
     this.postorderTraversalNode(tree.getRoot());
@@ -90,8 +95,73 @@ public class BinaryTree<T extends Comparable<T>> {
   }
 
   /**
+   * REMEMBER
+   * LEVEL ORDER TRANSVERSAL BINARY TREE
+   * @param n
+   * @throws RootNotSetException
+   */
+  public void levelOrderTreeTraversal(Node<T> n) throws RootNotSetException {
+    int height = this.height(this.getRoot());
+    for (int i = 1; i <= height; i++) {
+      printLevelOrderTree(this.getRoot(), i);
+    }
+  }
+
+  private void printLevelOrderTree(Node<T> node, int level) {
+    if (node == null) return;
+    else {
+      if (level == 1) System.out.print(node.getKey() + " ");
+      if (level > 1) {
+        printLevelOrderTree(node.getLeftChild(), level - 1);
+        printLevelOrderTree(node.getRightChild(), level - 1);
+      }
+    }
+  }
+  
+  /**
+   * REMEMBER
+   * https://www.geeksforgeeks.org/print-nodes-at-k-distance-from-root/
+   * Function to print nodes at K distance from Root
+   * @param node
+   * @param k
+   */
+  public void nodesAtKDistance(Node<T> node , int k) {
+	  if(node == null) return;
+	  else {
+		  if( k == 0) System.out.print(node.getKey() + " ");
+		  if( k > 0) {
+			  nodesAtKDistance(node.getLeftChild(), k-1);
+			  nodesAtKDistance(node.getRightChild() , k-1);
+		  }
+		  if(k < 0) return;
+	  }
+  }
+  
+  
+  /**
+   * REMEMBER
+   * https://www.geeksforgeeks.org/print-ancestors-of-a-given-node-in-binary-tree/
+   * Find Ancestors of a given node in binary tree
+   * @param node
+   * @param target
+   * @return
+   */
+  public boolean findAncestors(Node<T> node , Double target) {
+	  if (node == null) return false;
+	  if(node.getKey().compareTo((T)target) == 0) return true;
+	  if (findAncestors(node.getLeftChild(), target) || findAncestors(node.getRightChild(), target)) {
+		  System.out.print(node.getKey() + " ");
+		  return true;
+	  }
+	  
+	  return false;
+	  
+	  
+  }
+
+  /**
+   * REMEMBER
    * Insertion of element in BinarySearchTree
-   *
    * @param key
    */
   public void insert(T key) {
@@ -127,7 +197,6 @@ public class BinaryTree<T extends Comparable<T>> {
 
   /**
    * Create Binary Search Tree from Array elements
-   *
    * @param elements
    */
   public void insertFromArray(T[] elements) {
@@ -136,7 +205,8 @@ public class BinaryTree<T extends Comparable<T>> {
     }
   }
 
-  /** Search for a element in Binary Search Tree */
+  /** REMEMBER 
+   * Search for a element in Binary Search Tree */
   public boolean searchBST(T key) {
 
     try {
@@ -162,8 +232,8 @@ public class BinaryTree<T extends Comparable<T>> {
   }
 
   /**
-   * REMEMBER Check if the given Binary Tree is Binary Search Tree
-   *
+   * REMEMBER 
+   * Check if the given Binary Tree is Binary Search Tree without using inorder traversal
    * @return
    */
   public boolean checkIfBST() {
@@ -188,8 +258,8 @@ public class BinaryTree<T extends Comparable<T>> {
   }
 
   /**
+   * REMEMBER
    * Find inorder successor of a node in Binary Tree
-   *
    * @param n
    * @return
    */
@@ -213,8 +283,8 @@ public class BinaryTree<T extends Comparable<T>> {
   }
 
   /**
+   * REMEMBER
    * Function to delete a node from Binary Search Tree
-   *
    * @param n : The node to be deleted.
    */
   public void deleteNode(Node<T> n) {
@@ -300,7 +370,8 @@ public class BinaryTree<T extends Comparable<T>> {
   }
 
   /**
-   * REMEMBER Create Binary Search Tree from Sorted Array
+   * REMEMBER 
+   * Create Balanced Binary Search Tree from Sorted Array
    * https://www.geeksforgeeks.org/sorted-array-to-balanced-bst/
    *
    * @param arr
@@ -319,6 +390,7 @@ public class BinaryTree<T extends Comparable<T>> {
   }
 
   /**
+   * REMEMBER
    * Convert BinaryTree to Binary Search Tree while preserving the structure
    * https://www.geeksforgeeks.org/binary-tree-to-binary-search-tree-conversion/
    *
@@ -353,6 +425,14 @@ public class BinaryTree<T extends Comparable<T>> {
     return arr;
   }
 
+  
+
+  /**
+   * REMEMBER Function to calculate diameter of Binary Tree
+   * https://www.geeksforgeeks.org/diameter-of-a-binary-tree/
+   * @param node
+   * @param map
+   */
   public void diameterBinaryTree() throws RootNotSetException {
     HashMap<Node<T>, Integer> map = new HashMap<Node<T>, Integer>();
     map = diameterBinaryTree(this.getRoot(), map);
@@ -361,13 +441,6 @@ public class BinaryTree<T extends Comparable<T>> {
     }
   }
 
-  /**
-   * REMEMBER Function to calculate diameter of Binary Tree
-   * https://www.geeksforgeeks.org/diameter-of-a-binary-tree/
-   *
-   * @param node
-   * @param map
-   */
   public HashMap<Node<T>, Integer> diameterBinaryTree(Node<T> node, HashMap<Node<T>, Integer> map) {
 
     if (node == null) return null;
@@ -388,6 +461,14 @@ public class BinaryTree<T extends Comparable<T>> {
     return l_height + r_height;
   }
 
+  /**
+   * REMEMBER 
+   * Function to calculate height of a node in a tree(i,e 1 + max (height of left subtree +
+   * right subtree)
+   *
+   * @param node
+   * @return
+   */
   private int height(Node<T> node) {
     if (node == null) return 0;
     else {
@@ -396,29 +477,27 @@ public class BinaryTree<T extends Comparable<T>> {
   }
 
   /**
-   * REMEMBER
-   * https://www.geeksforgeeks.org/maximum-width-of-a-binary-tree/
-   * Find width of a Binary Tree
+   * REMEMBER 
+   * https://www.geeksforgeeks.org/maximum-width-of-a-binary-tree/ 
+   * Find width of a BinaryTree
    * @throws RootNotSetException
    */
   public void width() throws RootNotSetException {
     HashMap<BinaryTree<T>.Node<T>, Integer> map = new HashMap<Node<T>, Integer>();
-    map = width(this.getRoot(), 1,map); 
+    map = width(this.getRoot(), 1, map);
     for (Entry<BinaryTree<T>.Node<T>, Integer> en : map.entrySet()) {
-        System.out.println("Node is " + en.getKey().getKey() + ",level is : " + en.getValue());
-      }
+      System.out.println("Node is " + en.getKey().getKey() + ",level is : " + en.getValue());
+    }
   }
 
-  private HashMap<Node<T>, Integer> width(Node<T> node, int level,HashMap<Node<T>, Integer> map) {
+  private HashMap<Node<T>, Integer> width(Node<T> node, int level, HashMap<Node<T>, Integer> map) {
     if (node == null) return null;
-    
-    map.put(node,level);
-    width(node.getLeftChild(),level + 1,map);
-    width(node.getRightChild(),level + 1,map);
+
+    map.put(node, level);
+    width(node.getLeftChild(), level + 1, map);
+    width(node.getRightChild(), level + 1, map);
     return map;
   }
-
-
 
   /**
    * Node class to store nodes of a Binary Tree

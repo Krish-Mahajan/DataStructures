@@ -9,7 +9,6 @@ public class StackLinkedList<T extends Comparable<T>> {
 
 	/**
 	 * check if stack is empty
-	 * 
 	 * @return
 	 */
 	public boolean isEmpty() {
@@ -21,7 +20,6 @@ public class StackLinkedList<T extends Comparable<T>> {
 
 	/**
 	 * Add new element to stack
-	 * 
 	 * @param x
 	 * @return
 	 */
@@ -95,7 +93,8 @@ public class StackLinkedList<T extends Comparable<T>> {
 	}
 
 	/**
-	 * REMEMBER Reverse stack , using Push Pop
+	 * REMEMBER 
+	 * Reverse stack , using Push Pop
 	 * (https://www.geeksforgeeks.org/reverse-a-stack-using-recursion/)
 	 */
 	public void reverse() {
@@ -121,7 +120,8 @@ public class StackLinkedList<T extends Comparable<T>> {
 	}
 
 	/**
-	 * REMEMBER Sort a stack recursively only using Stack operation
+	 * REMEMBER 
+	 * Sort a stack recursively only using Stack operation
 	 * push(),pop(),top()
 	 * (https://www.geeksforgeeks.org/sort-a-stack-using-recursion/)
 	 */
@@ -160,6 +160,7 @@ public class StackLinkedList<T extends Comparable<T>> {
 	}
 
 	/**
+	 * REMEMBER
 	 * Function to check if given parantheses is balanced or not.
 	 * @param expr
 	 * @return

@@ -48,6 +48,7 @@ public class LinkedList<T extends Comparable<T>> {
 
     private T data;
     private Node<T> next;
+    private Node<T> previous;
 
     // Constructor to create a new node
     // Next is by default initialized
@@ -63,7 +64,15 @@ public class LinkedList<T extends Comparable<T>> {
       return next;
     }
 
-    public void setNext(Node<T> next) {
+    public Node<T> getPrevious() {
+    return previous;
+  }
+
+   public void setPrevious(Node<T> previous) {
+     this.previous = previous;
+  }
+
+  public void setNext(Node<T> next) {
       this.next = next;
     }
 
@@ -90,6 +99,18 @@ public class LinkedList<T extends Comparable<T>> {
     Node<T> new_node = new Node<T>(new_data);
     new_node.next = this.getHead();
     this.setHead(new_node);
+  }
+  
+  /**
+   * Add a new node at the start of Doubly LinkedList
+   * @param new_data
+   */
+  public void push_DLL(T new_data) {
+	  Node<T> new_node = new Node<T>(new_data);
+	  new_node.next = this.getHead();
+	  this.getHead().setPrevious(new_node);
+	  this.setHead(new_node);
+	  new_node.setPrevious(null);
   }
 
   /**
@@ -123,6 +144,39 @@ public class LinkedList<T extends Comparable<T>> {
       curr.setNext(new_node);
       new_node.setNext(currNext);
     }
+  }
+  
+  
+  
+  public void insertAfter_DLL(T newNodeData , T nodeData) {
+	  
+	  //create the new_node
+	  Node<T> new_node = new Node<T>(newNodeData);
+	  
+	  // search the exisitng node
+	  Node<T> curr = this.getHead();
+	  Node<T> currNext = curr.getNext();
+	  
+	    // iterate over the linkedList till the node is found or end of the LinkedList
+	    // is reached
+	    while (curr != null) {
+	      if (curr.getData().equals(newNodeData)) {
+	        break;
+	      }
+
+	      curr = currNext;
+	      currNext = curr.getNext();
+	    }
+	    
+	    if (curr == null) {
+	        logger.info("LinkedList has no Node with the value :" + newNodeData);
+	      } else {
+	    	new_node.setPrevious(curr);
+	        curr.setNext(new_node);
+	        new_node.setNext(currNext);
+	        currNext.setPrevious(new_node);
+	      }
+
   }
 
   /**

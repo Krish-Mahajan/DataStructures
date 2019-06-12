@@ -1,5 +1,7 @@
 package datastructure.sorting;
 
+import java.lang.reflect.Array;
+
 import org.apache.log4j.Logger;
 
 import datastructure.exceptions.EmptyArrayException;
@@ -14,13 +16,21 @@ public class Heap<T extends Comparable<T>> {
 	
 	private final String HEAP_TYPE; 
 	
-	public Heap(T[] arr , String heapType) throws EmptyArrayException, UnknownHeapException {
+	  private Class<T> clazz;
+	
+	public Heap(T[] arr , String heapType , Class<T> clazz) throws EmptyArrayException, UnknownHeapException {
 		this.heapArray = arr;
 		this.HEAP_TYPE = heapType;
+		this.clazz = clazz;
 		this.buildHeap();
 	}
 	
-	
+
+	 /**
+	  * Function to build heap from an array
+	  * @throws EmptyArrayException
+	  * @throws UnknownHeapException
+	  */
 	public void buildHeap() throws EmptyArrayException, UnknownHeapException {
 		
 		if(this.heapArray == null) throw new EmptyArrayException();	
@@ -70,6 +80,26 @@ public class Heap<T extends Comparable<T>> {
 	    return;
 	} 
 	
+	/**
+	 * Sort will sort the minHeap
+	 */
+	private T[] sort() {
+	
+		T[] new_arr = this.getArray(this.heapArray.length);
+		int i = this.heapArray.length -1 ;
+		int arr_len = this.heapArray.length ;
+		while(i >= 0) {
+		T element = this.heapArray[0];
+		new_arr[new_arr.length -1 - i] = element;
+		T last_element = this.heapArray[arr_len - 1];
+		this.heapArray[0] = last_element;
+		minHeapify(this.heapArray, arr_len, 0);
+		arr_len --;
+		i-- ;
+		}
+		return new_arr;
+	}
+	
 	
 
 
@@ -77,24 +107,35 @@ public class Heap<T extends Comparable<T>> {
   public void maxHeapify(int index) {
 		
 		
-	}
+	} 
+  
+  public <T> T[] getArray(int maxsize) {
+	    @SuppressWarnings("unchecked")
+	    T[] arr = (T[]) Array.newInstance(this.clazz, maxsize);
+	    return arr;
+	  }
  
   public static void main(String args[]) throws EmptyArrayException, UnknownHeapException {
 	  
-	  Integer[] arr = { 4 , 10 , 3, 5 ,1 }; 
+	  Integer[] arr = { 58 , 40 , 50 , 31 , 3 , 40 }; 
 	  
 	  logger.info("unsorted array is\n"); 
 	  for(Integer i : arr) logger.info(i + " ");
 	  logger.info("\n");
 	  
-	  Heap<Integer> heap = new Heap<Integer>(arr, "MinHeap");
-	  
-
-	  
+	  Heap<Integer> heap = new Heap<Integer>(arr, "MinHeap" , Integer.class);  
 	  
 	  
 	  logger.info("min Heapified array is\n"); 
 	  for(Integer i : arr) logger.info(i + " ");
+	  logger.info("\n");
+	  
+	  logger.info("sorted array is\n"); 
+	  Integer[] sorted_arr = heap.sort();
+	  for(Integer i : sorted_arr) logger.info(i + " ");
+	  logger.info("\n");
+	  
+	  
 	  
   }
 

@@ -1,10 +1,10 @@
 package datastructure.graph;
 
 import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
 
 import org.apache.log4j.Logger;
-
-import datastructure.binarytree.BinaryTree;
 
 public class Graph { 
 	
@@ -25,7 +25,11 @@ public class Graph {
     }
   }
 
-  // Adds an edge to undirected graph
+  /**
+   * Adds an edge to undirected graph
+   * @param src
+   * @param dest
+   */
   public void addEdge(int src, int dest) {
 
     // Add an edge from src to des
@@ -48,12 +52,15 @@ public class Graph {
     }
   }
 
-  // Breadth First Traversal of a graph
+  /**
+   * Breadth First Traversal of a graph
+   * @param startNode
+   */
   public void BFS(int startNode) {
 
     
 	// create a queue for BFS
-	LinkedList<Integer> queue = new LinkedList<Integer>();
+	Queue<Integer> queue = new LinkedList<Integer>();
     
 	//Create a boolean array of visited Nodes
 	boolean[] visited = new boolean[this.V];
@@ -73,42 +80,89 @@ public class Graph {
       }
     }
   }
+  
+  
+  
+  /**
+   * Depth First Traversal of a graph
+   * @param startNode
+   */
+  public void DFS(int startNode){
+	  
+	  // Create a stack for DFS
+	  Stack<Integer> stack = new Stack<Integer>();
+	  
+	  //create a boolean array of visited nodes
+	  boolean[] visited = new boolean[this.V];
+	  
+	  //Stack up the current node
+	  stack.add(startNode);
+	  
+	  while(!stack.isEmpty()) {
+		  int node = stack.pop();
+		  if(!visited[node]) {
+			  visited[node] = true;
+			  System.out.print(node + " ");
+			  LinkedList<Integer> nodeLL = this.adjListArray[node];
+			  for(int neighbour : nodeLL) {
+				  if(!visited[neighbour]) stack.add(neighbour);
+			  }
+		  }
+	  }
+  }
 
   public static void main(String[] args) {
-    int V = 5;
+    int V = 6;
     Graph graph = new Graph(V);
     graph.addEdge(0, 1);
-    graph.addEdge(0, 4);
-    graph.addEdge(1, 2);
-    graph.addEdge(1, 3);
-    graph.addEdge(1, 4);
-    graph.addEdge(2, 3);
-    graph.addEdge(3, 4);
+    graph.addEdge(0, 2);
+    graph.addEdge(2, 3);  
+    graph.addEdge(2, 4);
+    graph.addEdge(1, 5);
+
+    
 
     
     logger.info("Graph is : \n");
     graph.printGraph();
 
-    logger.info("BFS from node 4 is : \n");
-    graph.BFS(4); 
+    logger.info("BFS from node 0 is : \n");
+    graph.BFS(0); 
+    logger.info("\n"); 
+  
+    
+    logger.info("DFS from node 0 is : \n");
+    graph.DFS(0); 
     logger.info("\n");
     
-    logger.info("BFS from node 2 is : \n");
-    graph.BFS(2);  
-    logger.info("\n");
+//    logger.info("BFS from node 2 is : \n");
+//    graph.BFS(2);  
+//    logger.info("\n");
+//    
     
-    Graph g = new Graph(4); 
+  
     
-    g.addEdge(0, 1); 
-    g.addEdge(0, 2); 
-    g.addEdge(1, 2); 
-    g.addEdge(2, 0); 
-    g.addEdge(2, 3); 
-    g.addEdge(3, 3); 
-
-    System.out.println("Following is Breadth First Traversal "+ 
-                       "(starting from vertex 2 for graph 2)"); 
-
-    g.BFS(2); 
+//    logger.info("DFS from node 2 is : \n");
+//    graph.DFS(2);  
+//    logger.info("\n");
+//    
+//    Graph g = new Graph(4); 
+//    
+//    g.addEdge(0, 1); 
+//    g.addEdge(0, 2); 
+//    g.addEdge(1, 2); 
+//    g.addEdge(2, 0); 
+//    g.addEdge(2, 3); 
+//    g.addEdge(3, 3); 
+//
+//    System.out.println("Following is Breadth First Traversal "+ 
+//                       "(starting from vertex 2 for graph 2)"); 
+//    
+//    g.BFS(2);  
+//    
+//    System.out.println("Following is Depth First Traversal "+ 
+//            "(starting from vertex 2)"); 
+//
+//    g.DFS(2); 
   }
 }

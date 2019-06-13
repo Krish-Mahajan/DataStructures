@@ -102,18 +102,18 @@ public class BinaryTree<T extends Comparable<T>> {
    */
   public void levelOrderTreeTraversal(Node<T> n) throws RootNotSetException {
     int height = this.height(this.getRoot());
-    for (int i = 1; i <= height; i++) {
-      printLevelOrderTree(this.getRoot(), i);
+    for (int targetLevel = 1; targetLevel <= height; targetLevel++) {
+      printLevelOrderTree(this.getRoot(), 1 ,targetLevel);
     }
   }
 
-  private void printLevelOrderTree(Node<T> node, int level) {
+  private void printLevelOrderTree(Node<T> node, int initialLevel, int targetLevel) {
     if (node == null) return;
     else {
-      if (level == 1) System.out.print(node.getKey() + " ");
-      if (level > 1) {
-        printLevelOrderTree(node.getLeftChild(), level - 1);
-        printLevelOrderTree(node.getRightChild(), level - 1);
+      if (targetLevel == initialLevel) System.out.print(node.getKey() + " ");
+      else {
+        printLevelOrderTree(node.getLeftChild(), initialLevel + 1 , targetLevel);
+        printLevelOrderTree(node.getRightChild(), initialLevel + 1, targetLevel);
       }
     }
   }

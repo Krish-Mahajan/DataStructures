@@ -26,20 +26,35 @@ public class Graph {
   }
 
   /**
-   * Adds an edge to undirected graph
+   * Adds an edge to an Undirected graph
    * @param src
    * @param dest
    */
-  public void addEdge(int src, int dest) {
+  public void addEdgeUndirected(int src, int dest) {
+
+    // Add an edge from src to des
+    this.adjListArray[src].add(dest); 
+    
+    // Add an edge from des to src
+    this.adjListArray[dest].add(src);
+
+  }
+  
+  /**
+   * Adds an edge to a directed graph
+   * @param src
+   * @param dest
+   */
+  public void addEdgeDirected(int src, int dest) {
 
     // Add an edge from src to des
     this.adjListArray[src].add(dest);
 
-    // Since graph is undirected , add an edge from dest to src also
-    this.adjListArray[dest].add(src);
   }
 
-  // A utility function to print the adjacency list representation of Graph
+  /**
+   * A utility function to print the adjacency list representation of Graph
+   */
   public void printGraph() {
 
     for (int v = 0; v < this.V; v++) {
@@ -53,6 +68,7 @@ public class Graph {
   }
 
   /**
+   * REMEMBER
    * Breadth First Traversal of a graph
    * @param startNode
    */
@@ -84,7 +100,8 @@ public class Graph {
   
   
   /**
-   * Depth First Traversal of a graph
+   * REMEMBER 
+   * Depth First Traversal of a graph along with Cycle Detection
    * @param startNode
    */
   public void DFS(int startNode){
@@ -96,73 +113,60 @@ public class Graph {
 	  boolean[] visited = new boolean[this.V];
 	  
 	  //Stack up the current node
-	  stack.add(startNode);
+	  stack.push(startNode);
 	  
 	  while(!stack.isEmpty()) {
 		  int node = stack.pop();
 		  if(!visited[node]) {
 			  visited[node] = true;
-			  System.out.print(node + " ");
+			  System.out.println(node + " ");
 			  LinkedList<Integer> nodeLL = this.adjListArray[node];
 			  for(int neighbour : nodeLL) {
-				  if(!visited[neighbour]) stack.add(neighbour);
+				  if(!visited[neighbour]) stack.push(neighbour);
+					 else {
+						 System.out.println(node + "---->" + neighbour); 
+					 }
 			  }
 		  }
 	  }
   }
-
-  public static void main(String[] args) {
-    int V = 6;
-    Graph graph = new Graph(V);
-    graph.addEdge(0, 1);
-    graph.addEdge(0, 2);
-    graph.addEdge(2, 3);  
-    graph.addEdge(2, 4);
-    graph.addEdge(1, 5);
-
-    
-
-    
-    logger.info("Graph is : \n");
-    graph.printGraph();
-
-    logger.info("BFS from node 0 is : \n");
-    graph.BFS(0); 
-    logger.info("\n"); 
   
-    
-    logger.info("DFS from node 0 is : \n");
-    graph.DFS(0); 
-    logger.info("\n");
-    
-//    logger.info("BFS from node 2 is : \n");
-//    graph.BFS(2);  
-//    logger.info("\n");
-//    
-    
   
-    
-//    logger.info("DFS from node 2 is : \n");
-//    graph.DFS(2);  
-//    logger.info("\n");
-//    
-//    Graph g = new Graph(4); 
-//    
-//    g.addEdge(0, 1); 
-//    g.addEdge(0, 2); 
-//    g.addEdge(1, 2); 
-//    g.addEdge(2, 0); 
-//    g.addEdge(2, 3); 
-//    g.addEdge(3, 3); 
-//
-//    System.out.println("Following is Breadth First Traversal "+ 
-//                       "(starting from vertex 2 for graph 2)"); 
-//    
-//    g.BFS(2);  
-//    
-//    System.out.println("Following is Depth First Traversal "+ 
-//            "(starting from vertex 2)"); 
-//
-//    g.DFS(2); 
+  /**
+   * REMEMBER
+   * Topological sort DFS way
+   * Time complexity O(V + E)
+   */
+  public void topologicalSort() {
+	  Stack<Integer> stack = new Stack<Integer>();
+	  
+	  // All vertices initially are non Visited 
+	  boolean[] visited = new boolean[this.V];
+	  
+	  //call the recursive helper function to store
+	  // Topological sort starting from all vertices
+	  // one by one
+	  for(int i=0 ; i < this.V ; i++) {
+		 if(!visited[i])topoSortUtil(i,stack,visited);
+	 }
+	  
+	  while(!stack.isEmpty()) {
+		  System.out.print(stack.pop() + " ");
+	  }
+       
   }
+  
+  private void topoSortUtil(int vertex , Stack<Integer> stack ,boolean[] visited) {
+	  // mark the current vertex as visited 
+	  visited[vertex] = true;
+	  LinkedList<Integer> vertexLL = this.adjListArray[vertex];
+	  for(Integer neighbour : vertexLL) {
+		  if(!visited[neighbour]) topoSortUtil(neighbour, stack, visited);
+	  }
+	  
+	  //push the current vertex to stack 
+	  stack.push(vertex);
+  }
+  
+   
 }

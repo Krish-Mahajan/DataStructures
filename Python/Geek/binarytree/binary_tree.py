@@ -128,10 +128,11 @@ class BinaryTree(object):
         '''
         Functions to insert element in BinaryTree
         '''
-        if key is not None and self.get_root() is not None:
-            self._insert_help(self.get_root(),key)
-        elif self.get_root() is None:
-            self.set_root(key)
+        if key is not None :
+            if self.get_root() is  None:
+                self.set_root(key) 
+            else:
+                self._insert_help(self.get_root(),key)           
         elif key is None:
                 print("Key is null")
     

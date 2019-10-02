@@ -12,7 +12,7 @@ class BinaryTreeTestCase(unittest.TestCase):
     Tests for Binary Tree Functions
     '''
 
-    def test_inorder_tree_traversal(self): 
+    def test_inorder_tree_traversal(self)-> None: 
         print('\nInserting Elements in BST using List') 
         bt = BinaryTree()
         elements :List[int] =[ ] 
@@ -36,7 +36,7 @@ class BinaryTreeTestCase(unittest.TestCase):
         print('******************************************\n')
 
 
-    def test_inorder_successor(self):  
+    def test_inorder_successor(self)-> None:  
 
         print('\nInserting Elements in BST using List') 
         bt = BinaryTree()
@@ -63,7 +63,7 @@ class BinaryTreeTestCase(unittest.TestCase):
         print('******************************************\n') 
 
 
-    def test_height_of_tree(self): 
+    def test_height_of_tree(self)-> None: 
         print('\nInserting Elements in BST using List') 
         bt = BinaryTree()
         elements :List[int] =[ ] 
@@ -79,7 +79,7 @@ class BinaryTreeTestCase(unittest.TestCase):
         print('******************************************\n')
 
 
-    def test_level_order_traversal(self):
+    def test_level_order_traversal(self)-> None:
         elements = [17, 72, 97, 8, 32, 15, 63, 97, 57, 60]  
         print('Elements are :{}'.format(elements)) 
         bt = BinaryTree()
@@ -94,7 +94,7 @@ class BinaryTreeTestCase(unittest.TestCase):
         print('******************************************\n')
 
 
-    def test_width_of_tree(self): 
+    def test_width_of_tree(self)-> None: 
         elements = [17, 72, 97, 8, 32, 15, 63, 97, 57, 60]  
         print('Elements are :{}'.format(elements)) 
         bt = BinaryTree()
@@ -107,7 +107,7 @@ class BinaryTreeTestCase(unittest.TestCase):
         print('******************************************\n')
 
 
-    def test_nodes_at_k_distance(self): 
+    def test_nodes_at_k_distance(self)-> None: 
         elements = [17, 72, 97, 8, 32, 15, 63, 97, 57, 60]  
         print('Elements are :{}'.format(elements)) 
         bt = BinaryTree()
@@ -122,7 +122,7 @@ class BinaryTreeTestCase(unittest.TestCase):
 
 
 
-    def test_diameter_of_tree(self): 
+    def test_diameter_of_tree(self)-> None: 
         elements = [17, 72, 97, 8, 32, 15, 63, 97, 57, 60]  
         print('Elements are :{}'.format(elements)) 
         bt = BinaryTree()
@@ -135,13 +135,13 @@ class BinaryTreeTestCase(unittest.TestCase):
         print('******************************************\n') 
 
 
-    def test_search_key_in_BST(self): 
+    def test_search_key_in_BST(self)-> None: 
         bt = BinaryTree()
         elements :List[int] =[ ] 
         elements = [random.randrange(0,101) for _ in range(10)]  
         print('Elements are :{}'.format(elements))
-        for key in elements:
-            bt.insert(key)  
+        for key1 in elements:
+            bt.insert(key1)  
 
         key:int = random.choice(elements)
         print("Searching for following elemet in BST: {}".format(key))
@@ -151,13 +151,13 @@ class BinaryTreeTestCase(unittest.TestCase):
         print('******************************************\n') 
 
 
-    def test_find_ancestors_in_BST(self): 
+    def test_find_ancestors_in_BST(self) -> None: 
         elements = [17, 72, 97, 8, 32, 15, 63, 97, 57, 60]  
         print('Elements are :{}'.format(elements)) 
         bt = BinaryTree()
         print('\nInserting Elements in BST using List') 
-        for key in elements:
-            bt.insert(key)   
+        for key1 in elements:
+            bt.insert(key1)   
 
         key:int = random.choice(elements)
         print("Finding ancestors for following elemet in BST: {}".format(key))
@@ -167,7 +167,7 @@ class BinaryTreeTestCase(unittest.TestCase):
 
 
 
-    def test_create_binary_search_tree_from_sorted_list(self):
+    def test_create_binary_search_tree_from_sorted_list(self) -> None:
         bt = BinaryTree()
         elements :List[int] = []
         elements = [random.randrange(0,1000) for _ in range(20)]
@@ -185,7 +185,7 @@ class BinaryTreeTestCase(unittest.TestCase):
         print('******************************************\n') 
 
 
-    def test_delete_node(self):
+    def test_delete_node(self) -> None:
         bt = BinaryTree()
         elements :List[int] = [] 
         #elements= [ random.randrange(0,1000) for _ in range(0,20)] 

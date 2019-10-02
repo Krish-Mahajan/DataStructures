@@ -2,15 +2,16 @@
 from __future__ import annotations
 from typing import List, Set, Dict, Tuple, Optional 
 import sys
-
+import math
 
 class Node(object):
     '''
     A Python Program to represent adjacency list of the node
     ''' 
-    def __init__(self,data:int)-> None: 
+    def __init__(self,data:int,weight:int=0)-> None: 
         if data is not None:
             self._index:int = data 
+            self._weight:int = weight
         else: print("A node must have data to be created") 
 
 
@@ -22,7 +23,14 @@ class Node(object):
             return self._index 
         else:
             print('No such node present yet')
-            return None 
+            return None  
+
+    
+    def get_node_weight(self) -> int:
+        '''
+        get node weight
+        ''' 
+        return self._weight
 
 
 
@@ -56,18 +64,31 @@ class Graph(object):
  
 
     
-    def add_directed_edge(self,src:Node ,dest:Node) -> None:
+    def add_directed_edge(self,src:Node ,dest:Node , weight:int=None) -> None:
         '''
         Add a directed edge between source node and destination node
         ''' 
-        if src is not None and dest is not None: 
-            if src.get_node_index() in self.adj_list.keys():
-                self.adj_list[src.get_node_index()].append(dest)
-            else: 
-                self.adj_list[src.get_node_index()] = [dest]   
-                
-            if dest.get_node_index() not in self.adj_list.keys():
-                self.adj_list[dest.get_node_index()] = []
+        if not weight:
+            if src is not None and dest is not None: 
+                if src.get_node_index() in self.adj_list.keys():
+                    self.adj_list[src.get_node_index()].append(dest)
+                else: 
+                    self.adj_list[src.get_node_index()] = [dest]   
+                    
+                if dest.get_node_index() not in self.adj_list.keys():
+                    self.adj_list[dest.get_node_index()] = []  
+
+        else: 
+            if src is not None and dest is not None: 
+                new_dest_node : Node = Node(dest.get_node_index(),weight)
+                if src.get_node_index() in self.adj_list.keys():
+                    self.adj_list[src.get_node_index()].append(new_dest_node)
+                else: 
+                    self.adj_list[src.get_node_index()] = [new_dest_node]   
+                    
+                if new_dest_node.get_node_index() not in self.adj_list.keys():
+                    self.adj_list[new_dest_node.get_node_index()] = [] 
+
                 
 
 
@@ -117,7 +138,7 @@ class Graph(object):
                         if visited[neighbor_node.get_node_index()] !=True:
                             stack.append(neighbor_node)  
 
-    def topological_sort(self) -> None:
+    def topological_sort(self) -> List[int]:
         '''
         Topological sort of DAG
         '''
@@ -128,9 +149,11 @@ class Graph(object):
             if visited[cur_node_index] !=True:
                 self._topo_sort_util(stack,visited,cur_node_index) 
 
-        print("Topological sorting of the graph is")
-        while len(stack) >0:
-            print(stack.pop() , end = " ") 
+        print("\nTopological sorting of the graph is") 
+        for i in stack[::-1]:
+            print(i , end = ' ')
+        print('\n')
+        return stack
 
 
     def _topo_sort_util(self, stack:List[int],visited:List[bool],cur_node_index:int) -> None:
@@ -140,7 +163,66 @@ class Graph(object):
                 if visited[neighbor_node.get_node_index()] !=True:
                     self._topo_sort_util(stack,visited,neighbor_node.get_node_index()) 
     
-        stack.append(cur_node_index)
+        stack.append(cur_node_index) 
+
+
+
+    def shortest_path_given_vertex_DAG(self,start_node:Node)->None:
+        '''
+        Shortest path to every node given start_node 
+        '''
+        # Initializing all distances 
+        dist : List[int] = [10000]*len(self.adj_list.keys()) 
+        dist[start_node.get_node_index()] = 0 
+
+
+        stack : List[int] = self.topological_sort() 
+
+        #Update the shortest distances
+        while( len(stack) > 0):
+            node_index : int = stack.pop() 
+            print('Processing Node : {}'.format(node_index))
+            neighbour_nodes : List[Node] = self.adj_list[node_index] 
+            neighbour_nodes =[ n for n in  neighbour_nodes if n.get_node_index() != start_node.get_node_index()]
+            for neighbour_node in neighbour_nodes:
+                if dist[neighbour_node.get_node_index()] > dist[node_index] + neighbour_node.get_node_weight() :
+                    dist[neighbour_node.get_node_index()] = dist[node_index] + neighbour_node.get_node_weight() 
+
+
+        print('Minimum distances of node from Node :{}'.format(start_node.get_node_index()))
+        for d in dist:
+            print(d , end = ' ')  
+        print('\n')
+
+
+
+    def longest_path_given_vertex_DAG(self,start_node:Node)->None:
+        '''
+        Shortest path to every node given start_node 
+        '''
+        # Initializing all distances 
+        dist : List[int] = [-10000]*len(self.adj_list.keys()) 
+        dist[start_node.get_node_index()] = 0 
+
+
+        stack : List[int] = self.topological_sort() 
+
+        #Update the shortest distances
+        while( len(stack) > 0):
+            node_index : int = stack.pop() 
+            print('Processing Node : {}'.format(node_index))
+            neighbour_nodes : List[Node] = self.adj_list[node_index] 
+            neighbour_nodes =[ n for n in  neighbour_nodes if n.get_node_index() != start_node.get_node_index()]
+            for neighbour_node in neighbour_nodes:
+                if dist[neighbour_node.get_node_index()] < dist[node_index] + neighbour_node.get_node_weight() :
+                    dist[neighbour_node.get_node_index()] = dist[node_index] + neighbour_node.get_node_weight() 
+
+
+        print('Max distances of node from Node :{}'.format(start_node.get_node_index()))
+        for d in dist:
+            print(d , end = ' ')
+        print('\n')
+
 
 
 

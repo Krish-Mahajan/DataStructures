@@ -242,7 +242,7 @@ class BinaryTree(object):
             self.print_level_order_keys(self.get_root(),1,level+1,self.t) 
         return self.t
         
-    def print_level_order_keys(self,node:Optional[Node],initial_level:int,target_level:int,t:Tuple[Tuple[(int,int)],...]):
+    def print_level_order_keys(self,node:Optional[Node],initial_level:int,target_level:int,t:Tuple[Tuple[(int,int)],...])-> None:
         if node is not None:
             if(initial_level == target_level): 
                 print(target_level , '->' , node.get_key())

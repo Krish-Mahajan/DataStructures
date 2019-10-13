@@ -1,6 +1,7 @@
 package datastructure.graph;
 
-import java.util.Stack;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * REMEMBER
@@ -20,8 +21,8 @@ public class Board {
 	
 	static int minThrow(int[] move) {
 		
-		//Queue<Square> queue = new LinkedList<Square>();
-		Stack<Square> queue = new Stack<Square>();
+		Queue<Square> queue = new LinkedList<Square>();
+		//Stack<Square> queue = new Stack<Square>();
 		boolean[] visited = new boolean[30];
 		
 		Square cur_square = new Square();
@@ -31,8 +32,8 @@ public class Board {
 		queue.add(cur_square);
 		
 		while(!queue.isEmpty()) {
-		     //cur_square = queue.poll();
-			cur_square = queue.pop();
+		    cur_square = queue.poll();
+			//cur_square = queue.pop();
 		    if(cur_square.index == 30-1) break;
 			for(int j = cur_square.index + 1; j <= cur_square.index + 6 && j< 30 ; j++) {
 			if(!visited[j]) {

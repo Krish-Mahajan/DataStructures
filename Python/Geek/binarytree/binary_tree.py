@@ -373,7 +373,7 @@ class BinaryTree(object):
 
         if(node.get_key() >= max or node.get_key() <= min):return False 
 
-        return( self._check_binary_tree_if_BST(node.get_left_child(),node.get_key(),min) and (self._check_binary_tree_if_BST(node.get_right_child(),node.get_key(),max))) 
+        return( self._check_binary_tree_if_BST(node.get_left_child(),min,node.get_key()) and (self._check_binary_tree_if_BST(node.get_right_child(),node.get_key(),max))) 
 
 
 

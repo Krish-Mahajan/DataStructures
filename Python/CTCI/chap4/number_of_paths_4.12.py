@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 from typing import List, Set, Dict, Tuple, Optional 
-import sys 
+import sys  
+import unittest
+import random
 
 
 class Node(object):
@@ -138,6 +140,7 @@ class BST(object):
             return False  
 
 
+    #CTCI 4.12
     def pre_order_traversal(self,node:Node,traversal_str:str = ' ') -> str:
         if node is not None:
             traversal_str += str(node.get_node_data()) 
@@ -147,7 +150,25 @@ class BST(object):
         else:
             traversal_str += 'x'
             return traversal_str
-            
+    
+
+
+
+class TestMinimalBSTTree(unittest.TestCase):
+
+    def test_minimal_bst_tree(self)-> None:
+        arr:List[int] = [random.randrange(0,100) for n in range(10)] 
+        arr.sort() 
+        print("Sorted array is :{}".format(arr))
+        binary_search_tree:BST = BST()
+        binary_search_tree.min_bst_from_sorted_array(arr)
+        binary_search_tree.inoder_traversal(binary_search_tree.get_root())  
+
+
+if  __name__ == "__main__":
+    test = TestMinimalBSTTree()
+    test.test_minimal_bst_tree()
+
 
 
     

@@ -68,7 +68,7 @@ public class MinStepNeeded {
 			     if( cur_pos == x) return distance.get(cur_pos);
 			     if(! visited.get(cur_pos)) {
 	    			 visited.put(cur_pos, true);
-			    	 int[] new_pos = {cur_pos + d1 ,cur_pos - d2};
+			    	 int[] new_pos = {cur_pos + d1 ,cur_pos - d1,cur_pos + d2 ,cur_pos - d2};
 			    	 for (int neigh_pos : new_pos) {
  			    		 if(visited.get(neigh_pos) == null) visited.put(neigh_pos, false);
 			    		 if(!visited.get(neigh_pos)) {

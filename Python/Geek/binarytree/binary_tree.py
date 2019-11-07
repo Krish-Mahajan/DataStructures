@@ -390,7 +390,25 @@ class BinaryTree(object):
         curr_key_index:int = int((min + max)/2)
         self.insert(arr[curr_key_index]) 
         self._create_BST_from_sorted_array(arr,min,curr_key_index-1) 
-        self._create_BST_from_sorted_array(arr,curr_key_index+1,max)  
+        self._create_BST_from_sorted_array(arr,curr_key_index+1,max)    
+
+
+
+
+    def covers(self,node1:Node,node2:Node)-> bool:
+        '''
+        Function to check it node1 covers node2
+        '''
+        if  node2 is not None:
+            if node1 is None:
+                return False 
+            if node1.get_key() == node2.get_key() :
+                return True 
+            return self.covers(node1.get_left_child(),node2) or self.covers(node1.get_right_child(),node2)
+
+        else:
+            return False
+
 
 
     def delete_node(self,key:int)->None:
@@ -425,7 +443,31 @@ class BinaryTree(object):
                     node.set_left_child(None) 
                 else:
                     node.set_key(node.get_right_child().get_key())
-                    node.set_right_child(None)
+                    node.set_right_child(None) 
+
+
+
+    def depth_of_node_without_parent(self,data:int) -> int:
+        '''
+        Function to find depth of a node if refrence to parent is not availailbe
+        '''
+        return self.__help_depth_of_node(data,self.get_root(),1)  
+
+
+    def __help_depth_of_node(self, data:int,cur_node:Node,level:int)-> int:
+        
+        if cur_node is None:
+            return 0
+        
+        if cur_node.get_key() == data:
+            return level
+
+        return max(self.__help_depth_of_node(data,cur_node.get_left_child(),level+1) ,self.__help_depth_of_node(data,cur_node.get_right_child(),level+1))  
+
+
+    #def depth_of_node_with_parent(self,node:Node)    
+ 
+
 
 
 

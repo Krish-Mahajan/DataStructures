@@ -119,7 +119,39 @@ class GraphTestCase(unittest.TestCase):
         graph.add_directed_edge(Node_3, Node_4,-1)
         graph.add_directed_edge(Node_4, Node_5,-2)
         
-        graph.longest_path_given_vertex_DAG(Node_1)
+        graph.longest_path_given_vertex_DAG(Node_1)  
+
+
+    def test_is_directed_graph_cyclic_DFS(self) -> None: 
+        g = Graph()
+        Node_0 = Node(0)
+        Node_1 = Node(1)
+        Node_2 = Node(2)
+        Node_3 = Node(3) 
+        g.add_directed_edge(Node_0, Node_1) 
+        g.add_directed_edge(Node_0, Node_2) 
+        g.add_directed_edge(Node_1, Node_2) 
+       # g.add_directed_edge(Node_2, Node_0) 
+        #g.add_directed_edge(Node_2, Node_3) 
+        #g.add_directed_edge(Node_3, Node_3)  
+
+        print("Is graph Cyclic :{}".format(g.isDirectedGraphCyclicDFS())) 
+
+
+    def test_is_undirected_graph_cyclic(self) -> None: 
+        g = Graph(3)
+        Node_0 = Node(0)
+        Node_1 = Node(1)
+        Node_2 = Node(2)
+        g.add_undirected_edge_once(Node_0, Node_1) 
+        g.add_undirected_edge_once(Node_1, Node_2) 
+        g.add_undirected_edge(Node_2, Node_0) 
+   
+
+        print("Is undirected_graph Cyclic :{}".format(g.is_undirected_graph_cyclic()))
+
+  
+
 
              
 
@@ -131,6 +163,9 @@ if __name__ == "__main__":
     #test.test_graph_BFS()
     #test.test_graph_DFS() 
     #test.test_graph_topo_sort()
-    test.test_shortest_path_given_vertex_DAG() 
-    test.test_longest_path_given_vertex_DAG()
+    #test.test_shortest_path_given_vertex_DAG() 
+    #test.test_longest_path_given_vertex_DAG()
+    #test.test_is_directed_graph_cyclic_DFS()
+    test.test_is_undirected_graph_cyclic()
+
 

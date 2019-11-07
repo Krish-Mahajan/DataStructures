@@ -211,7 +211,25 @@ class BinaryTreeTestCase(unittest.TestCase):
 
         #checking elements are coming sorted after deletion of node
         print('Elements after inorder traversal are :{}'.format(node_list_keys)) 
-        self.assertEqual(elements,node_list_keys) 
+        self.assertEqual(elements,node_list_keys)   
+
+
+    def test_level_node_without_parent(self)-> None: 
+        bt = BinaryTree()
+        elements :List[int] =[ ] 
+        elements = [random.randrange(0,101) for _ in range(10)]  
+        print('Elements are :{}'.format(elements))
+        for key1 in elements:
+            bt.insert(key1)  
+
+        for key in elements:
+            level:int = bt.depth_of_node_without_parent(key)
+            print("Level of element {} in BST is {}".format(key,level))
+        print('******************************************\n') 
+
+
+
+        
 
 
 
@@ -226,7 +244,8 @@ if __name__ == "__main__":
     #test.test_search_key_in_BST()
     #test.test_find_ancestors_in_BST()
     #test.test_create_binary_search_tree_from_sorted_list()
-    test.test_delete_node()
+    #test.test_delete_node()
+    test.test_level_node_without_parent()
 
     
 

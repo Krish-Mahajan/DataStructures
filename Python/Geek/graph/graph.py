@@ -39,11 +39,12 @@ class Graph(object):
     A class to represent a graph.A graph is a list of adjancency lists.
     Size of the list will be the number of the list.
     ''' 
-    def __init__(self)-> None:
+    def __init__(self,V:int=None)-> None:
         '''
         Initializes a new graph object
         '''
         self.adj_list: Dict[int,List[Node]] = {}
+        self.V = V
 
         
     def add_undirected_edge(self,src:Node ,dest:Node) -> None: 
@@ -60,8 +61,16 @@ class Graph(object):
                 self.adj_list[dest.get_node_index()].append(src)
             else: 
                 self.adj_list[dest.get_node_index()] = [src]   
-                
- 
+
+
+    def add_undirected_edge_once(self,src:Node,dest:Node) -> None:
+
+        if src is not None and dest is not None: 
+            if src.get_node_index() in self.adj_list.keys():
+                self.adj_list[src.get_node_index()].append(dest)
+            else: 
+                self.adj_list[src.get_node_index()] = [dest]  
+        
 
     
     def add_directed_edge(self,src:Node ,dest:Node , weight:int=None) -> None:
@@ -107,6 +116,8 @@ class Graph(object):
         '''
         if start_node is not None:
             queue : List[Node] = [start_node] 
+
+            #Assuming List index is 0 - n range
             visited : List[bool]= [False]*len(self.adj_list)
 
             while len(queue) > 0:
@@ -126,7 +137,9 @@ class Graph(object):
         Depth first traversal of Tree
         ''' 
         if start_node is not None:
-            stack : List[Node] =[start_node]
+            stack : List[Node] =[start_node] 
+            
+            #Assuming List index is 0 - n range
             visited : List[bool] = [False]*len(self.adj_list) 
             while len(stack) > 0:
                 cur_node :Node = stack.pop()
@@ -157,9 +170,9 @@ class Graph(object):
 
 
     def _topo_sort_util(self, stack:List[int],visited:List[bool],cur_node_index:int) -> None:
-        visited[cur_node_index] = True 
-        neighbor_nodes:List[Node] = self.adj_list[cur_node_index] 
-        for neighbor_node in neighbor_nodes:
+        visited[cur_node_index] = True  
+
+        for neighbor_node in self.adj_list[cur_node_index]:
                 if visited[neighbor_node.get_node_index()] !=True:
                     self._topo_sort_util(stack,visited,neighbor_node.get_node_index()) 
     
@@ -221,7 +234,78 @@ class Graph(object):
         print('Max distances of node from Node :{}'.format(start_node.get_node_index()))
         for d in dist:
             print(d , end = ' ')
-        print('\n')
+        print('\n') 
+
+
+
+    def isDirectedGraphCyclicDFS(self) -> bool:
+        '''
+        Calculate if a given directed graph is cyclic using DFS approach
+        '''
+        visited:List[bool] = [False]*len(self.adj_list) 
+        rec_stack :List[bool]= [False]*len(self.adj_list) 
+
+        for node in self.adj_list:
+            if visited[node] == False:
+                if self.isDirectedGraphCyclicDFSUtil(node,visited,rec_stack) == True:
+                    return True 
+        return False  
+
+
+
+    def isDirectedGraphCyclicDFSUtil(self,node_index:int,visited:List[bool],rect_stack:List[bool]) -> bool:
+
+        visited[node_index] = True 
+        rect_stack[node_index] = True 
+
+        for neighbor_node in self.adj_list[node_index]:
+            if visited[neighbor_node.get_node_index()] == False:
+                if self.isDirectedGraphCyclicDFSUtil(neighbor_node.get_node_index(),visited,rect_stack) == True:
+                   return True 
+            elif rect_stack[neighbor_node.get_node_index()] == True:
+                return True 
+        
+        rect_stack[node_index] = False
+        return False 
+
+
+    def is_undirected_graph_cyclic(self) -> bool:
+        
+        '''
+        Function to check if undirected graph is cyclic using union 
+        and find.
+        '''
+
+        parent : List[int] = [-1]*self.V  #to make sure edges are pass only once (i,e 1-2 and 2-1 is counted as one)
+
+        for node in range(self.V):
+            if node in self.adj_list:
+                for neighbor_node in self.adj_list[node]:
+                    x:int = self.find_parent(parent,node)
+                    y:int = self.find_parent(parent,neighbor_node.get_node_index())
+                    if x ==y:
+                        return True
+                    self.union(parent,x,y) 
+
+        return False
+
+
+    def find_parent(self,parent:List[int],node_index:int) -> int:
+        if parent[node_index] == -1 :
+            return node_index 
+        else:
+            return self.find_parent(parent,parent[node_index])
+
+
+    def union(self,parent:List[int],x:int,y:int) -> None:
+        x_set:int = self.find_parent(parent,x) 
+        y_set:int = self.find_parent(parent,y)
+        parent[x_set] = y_set
+
+
+
+
+
 
 
 

@@ -47,30 +47,35 @@ class Graph(object):
         self.V = V
 
         
-    def add_undirected_edge(self,src:Node ,dest:Node) -> None: 
+    def add_undirected_edge(self,src:Node ,dest:Node,weight:int=None) -> None: 
         '''
         Add a undirected edge between source node and destination node
         '''
-        if src is not None and dest is not None: 
-            if src.get_node_index() in self.adj_list.keys():
-                self.adj_list[src.get_node_index()].append(dest)
-            else: 
-                self.adj_list[src.get_node_index()] = [dest]  
+        if not weight:
+            if src is not None and dest is not None: 
+                if src.get_node_index() in self.adj_list.keys():
+                    self.adj_list[src.get_node_index()].append(dest)
+                else: 
+                    self.adj_list[src.get_node_index()] = [dest]  
 
-            if dest.get_node_index() in self.adj_list.keys():
-                self.adj_list[dest.get_node_index()].append(src)
-            else: 
-                self.adj_list[dest.get_node_index()] = [src]   
+                if dest.get_node_index() in self.adj_list.keys():
+                    self.adj_list[dest.get_node_index()].append(src)
+                else: 
+                    self.adj_list[dest.get_node_index()] = [src]   
 
+        else: 
+            if src is not None and dest is not None: 
+                if src.get_node_index() in self.adj_list.keys():
+                    self.adj_list[src.get_node_index()].append(Node(dest.get_node_index(),weight))
+                else: 
+                    self.adj_list[src.get_node_index()] = [Node(dest.get_node_index(),weight)]  
 
-    def add_undirected_edge_once(self,src:Node,dest:Node) -> None:
+                if dest.get_node_index() in self.adj_list.keys():
+                    self.adj_list[dest.get_node_index()].append(Node(src.get_node_index(),weight))
+                else: 
+                    self.adj_list[dest.get_node_index()] = [Node(src.get_node_index(),weight)]   
 
-        if src is not None and dest is not None: 
-            if src.get_node_index() in self.adj_list.keys():
-                self.adj_list[src.get_node_index()].append(dest)
-            else: 
-                self.adj_list[src.get_node_index()] = [dest]  
-        
+            
 
     
     def add_directed_edge(self,src:Node ,dest:Node , weight:int=None) -> None:
@@ -277,15 +282,19 @@ class Graph(object):
         '''
 
         parent : List[int] = [-1]*self.V  #to make sure edges are pass only once (i,e 1-2 and 2-1 is counted as one)
-
-        for node in range(self.V):
-            if node in self.adj_list:
+        edges_covered : List[List[int]] = []
+        
+        for node in self.adj_list:
                 for neighbor_node in self.adj_list[node]:
-                    x:int = self.find_parent(parent,node)
-                    y:int = self.find_parent(parent,neighbor_node.get_node_index())
-                    if x ==y:
-                        return True
-                    self.union(parent,x,y) 
+                    edge:List[int] = [node,neighbor_node.get_node_index()]
+                    edge.sort()
+                    if edge not in edges_covered:
+                        edges_covered.append((edge))
+                        x:int = self.find_parent(parent,node)
+                        y:int = self.find_parent(parent,neighbor_node.get_node_index())
+                        if x ==y:
+                            return True
+                        self.union(parent,x,y) 
 
         return False
 
@@ -294,37 +303,72 @@ class Graph(object):
         if parent[node_index] == -1 :
             return node_index 
         else:
-            return self.find_parent(parent,parent[node_index])
+            return self.find_parent(parent,parent[node_index]) 
+
+
+
 
 
     def union(self,parent:List[int],x:int,y:int) -> None:
         x_set:int = self.find_parent(parent,x) 
         y_set:int = self.find_parent(parent,y)
-        parent[x_set] = y_set
+        parent[x_set] = y_set  
 
 
 
 
 
+    def kruskal_mst(self) -> None:
+        '''
+        Minimum spanning tree for undirected connected graph
+        '''
+        result : List[List[int]] = [] #This will store resultant MST
+        i:int = 0 #Index variable used for sorted edges 
+        e:int =0  #Index variable used for result[]
+
+        #STEP 1 SORT ALL EDGES IN NON DECREASING ORDER OF WEIGHT 
+        sorted_edges : List[List[int]] = self.sort_edge_based_on_weight()  
+
+        parent : List[int] =[-1]*self.V  
+
+
+
+        #Number of edges to be taken ins equal to V - 1 
+        while e < self.V -1 : 
+            #Step 2 : pick the smallest edge ad increment , the index for next iteration 
+            u:int =  sorted_edges[i][0]
+            v:int =  sorted_edges[i][1]
+            w:int =  sorted_edges[i][2] 
+
+            i = i + 1 
+            x:int = self.find_parent(parent,u)
+            y:int = self.find_parent(parent,v) 
+
+            #If including this edge doesn't cause cycle, #Include it in result and increment the index
+            # of result for next edge 
+            if x!=y:
+                e = e + 1
+                result.append([u,v,w])
+                self.union(parent,x,y) 
+            #Else discard the edge 
+
+               # print the contents of result[] to display the built MST 
+        print("Following are the edges in the constructed MST")
+        for u,v,weight  in result: 
+            #print str(u) + " -- " + str(v) + " == " + str(weight) 
+            print ("%d -- %d == %d" % (u,v,weight)) 
 
 
 
 
-
-
-
-        
-
-
-            
-
-
-
-
-
-    
-
-
-
-
-
+    def sort_edge_based_on_weight(self) -> List[List[int]]: 
+        edges_covered : List[List[int]] = []
+        result : List[List[int]] = []
+        for node in self.adj_list:
+            for neighbor_node in self.adj_list[node]:
+                edge:List[int] = [node,neighbor_node.get_node_index()]
+                edge.sort()
+                if edge not in edges_covered:
+                    result.append([node,neighbor_node.get_node_index(),neighbor_node.get_node_weight()]) 
+        result = sorted(result,key=lambda item: item[2])
+        return result

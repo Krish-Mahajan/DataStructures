@@ -92,7 +92,7 @@ if __name__ == "__main__":
     cellCompete(states,days)  
     '''
     
-    states = [1,1,1,0,1,1,1,1]
-    days = 2
-    print('Test case 2 ')
-    cellCompete(states,days)  
+    #cellCompete(states,days) 
+    x= 'Krish'
+    for i in range(2,len(x)+1):
+        print(x[:i])  

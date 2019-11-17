@@ -55,7 +55,7 @@ def update_new_status(mat:List[List[int]], cell_map:Dict[str,Cell]) -> None:
             if c.next_status != -1 : #that is the status has been changed
                 c.cur_status = c.next_status 
                 mat[row_index][col_index]=c.cur_status
-
+    print("update : {}".format(mat))
 
 
 def look_all_direction(cell_map:Dict[str,Cell],row_index:int,col_index:int,total_rows:int,total_column_each_row:int) -> None:
@@ -104,9 +104,15 @@ def check_all_zombie(mat:List[List[int]],cell_map:Dict[str,Cell]) -> bool:
 
 
 if __name__ == "__main__":  
+    '''
     mat = [[1, 1, 1, 1, 1],
             [1, 1, 1, 1, 1],
             [0, 1, 0, 1, 1],
             [1, 1, 1, 0, 1]]
+    '''
+    mat = [[1, 0, 0, 0],
+           [0, 0, 0, 0],
+           [0, 0, 0, 0],
+           [0, 0, 0, 0]]
 
     print(how_many_hours(mat))

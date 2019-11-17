@@ -4,6 +4,8 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
+import java.util.Stack;
+
 public class TestGraph { 
 	
 	
@@ -16,6 +18,7 @@ public class TestGraph {
 		// test to check printing to graph
 		@Test
 		public void testGraph() {
+			logger.debug("Testing Graph Representation");
 			int V =4;
 			Graph graph = new Graph(V);
 		    graph.addEdge(0, 1,0);
@@ -34,6 +37,7 @@ public class TestGraph {
 		//test to check BFS
 		@Test
 		public void testBFS() {
+		logger.debug("Testing BFS");
 			int V =4;
 			Graph graph = new Graph(V);
 		    graph.addEdge(0, 1,0);
@@ -50,6 +54,7 @@ public class TestGraph {
 		//test to check DFS
 		@Test
 		public void testDFS() {
+			logger.debug("Testing DFS");
 			int V =4;
 			Graph graph = new Graph(V);
 		    graph.addEdge(0, 1,0);
@@ -67,6 +72,7 @@ public class TestGraph {
 		//test to check directed graph cyclic using DFS
 		@Test
 		public void testDirectedGraphCyclicDFS() {
+		    logger.debug("Testing if the directed graph is cyclic");
 			int V =4;
 			Graph graph = new Graph(V);
 		    graph.addEdge(0, 1,0);
@@ -79,6 +85,92 @@ public class TestGraph {
 		
 		} 
 		
+		
+		
+		@Test
+		public void testTopologicalSortingDFS() {
+		     Graph g = new Graph(6); 
+		        g.addEdge(5, 2,0); 
+		        g.addEdge(5, 0,0); 
+		        g.addEdge(4, 0,0); 
+		        g.addEdge(4, 1,0); 
+		        g.addEdge(2, 3,0); 
+		        g.addEdge(3, 1,0);  
+		        logger.debug("Following is a Topological " + 
+		                           "sort of the given graph"); 
+		        Stack<Integer> stack = g.topologicalSorting();
+		        // Print contents of stack 
+		        while (stack.empty()==false) 
+		            logger.debug(stack.pop() + " "); 
+		}
+		
+		
+		
+		@Test
+		public void testShortestPathDAG() {
+			  Graph g = new Graph(6); 
+		        g.addEdge(0, 1, 5); 
+		        g.addEdge(0, 2, 3); 
+		        g.addEdge(1, 3, 6); 
+		        g.addEdge(1, 2, 2); 
+		        g.addEdge(2, 4, 4); 
+		        g.addEdge(2, 5, 2); 
+		        g.addEdge(2, 3, 7); 
+		        g.addEdge(3, 4, -1); 
+		        g.addEdge(4, 5, -2);
+		        
+		        g.shortestDistanceFromVertexDAG(1);
+		}
+		
+		
+		@Test
+		public void testUnDirectedGraphCyclicUnionFind() {
+			  Graph g = new Graph(5); 
+		        g.addEdge(0, 1, 5); 
+		        g.addEdge(0, 2, 3); 
+		        g.addEdge(1, 3, 6); 
+		        g.addEdge(1, 4, 2); 
+		        //g.addEdge(3, 4, 4); 
+		        //g.addEdge(2, 5, 2); 
+		        //g.addEdge(2, 3, 7); 
+		        //g.addEdge(3, 4, -1); 
+		        //g.addEdge(4, 5, -2);
+		        
+		        logger.debug(g.detectCyclicUnDirectedGrapUnionFind());
+		} 
+		
+		
+		@Test
+		public void testIsGraphBiPartiteBFS() {
+			  Graph g = new Graph(6); 
+		        g.addEdge(0, 1, 0); 
+		        g.addEdge(1, 2, 0); 
+		        g.addEdge(2, 3, 0); 
+		        g.addEdge(3, 4, 0); 
+		        g.addEdge(4, 5, 0); 
+		        g.addEdge(5, 0, 0); 
+		        //g.addEdge(4, 0, 0); 
+
+		        
+		        logger.debug(g.isGraphBipartiteBFS());
+		}
+		
+		
+		@Test
+		public void testKruskalMST() {
+			  Graph g = new Graph(4); 
+		        g.addEdge(0, 1, 10); 
+		        g.addEdge(1, 3, 15); 
+		        g.addEdge(3, 2, 4); 
+		        g.addEdge(2, 0, 6); 
+		        g.addEdge(0, 3, 5); 
+		        ///g.addEdge(5, 0, 0); 
+		        //g.addEdge(4, 0, 0); 
+
+		        
+		       g.kruskalMST();
+		}
+	
 	
 		
 	}

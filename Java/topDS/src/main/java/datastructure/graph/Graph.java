@@ -1,9 +1,13 @@
 package datastructure.graph;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.Stack;
 
 import org.apache.log4j.Logger;
 
@@ -54,7 +58,7 @@ public class Graph {
       int index = queue.remove(0);
       if (!visited.get(index)) {
         visited.put(index, true);
-        System.out.println("Node visited is :" + index);
+        logger.debug("Node visited is :" + index);
         List<Edge> indexEdges = this.adjList.get(index);
         for (Edge e : indexEdges) {
           if (!visited.get(e.n2.getIndex())) {
@@ -83,7 +87,7 @@ public class Graph {
 	      int index = stack.remove(stack.size()-1);
 	      if (!visited.get(index)) {
 	        visited.put(index, true);
-	        System.out.println("Node visited is :" + index);
+	        logger.debug("Node visited is :" + index);
 	        List<Edge> indexEdges = this.adjList.get(index);
 	        for (Edge e : indexEdges) {
 	          if (!visited.get(e.n2.getIndex())) {
@@ -139,6 +143,92 @@ public class Graph {
 	  }
 	  recStack.put(nodeIndex, false);
 	  return false;
+  } 
+  
+  
+  // Detect cycle in UndirectedGraph using UnionFind
+  public boolean detectCyclicUnDirectedGrapUnionFind() {
+	  
+	  //Subsets
+	  Map<Integer,Integer> map_set_nodes = new HashMap<>();
+	  
+	  Set<Edge> edgeSet = new HashSet<>();
+	  Set<Edge> edgesCovered = new HashSet<>();
+	  
+	  
+	  //Initialize all Nodes to single sets  i,e -1
+	  //Also create a set of Edge e
+	  
+	  //
+	  for(int i=0 ; i< this.V ; i++) {
+		  map_set_nodes.put(i, -1); // -1 indicating all nodes have different sets
+		  for(Edge e : this.adjList.get(i)) {
+			  edgeSet.add(e);
+		  }
+	  }
+	  
+	  //Iterate through all edges of graph , find subset of both vertices of every edge,
+	  // if both subsets are same, then there is cycle in graph
+	  for(Edge e: edgeSet) {
+		  if(!edgesCovered.contains(e)) {
+			  edgesCovered.add(e);
+			  int set_n1 = this.find_set(map_set_nodes,e.n1.getIndex());
+			  int set_n2 = this.find_set(map_set_nodes,e.n2.getIndex());
+			  
+			  if (set_n1 == set_n2) return true;
+			  else this.union_set(map_set_nodes,set_n1,set_n2);
+		  }
+	  }
+
+	  return false;
+  }
+  
+  
+  private int find_set(Map<Integer,Integer> map_set_nodes,int nodeIndex) {
+	  if(map_set_nodes.get(nodeIndex) == -1) return nodeIndex;
+	  else return this.find_set(map_set_nodes, map_set_nodes.get(nodeIndex));
+	 
+  } 
+  
+  
+  private void union_set(Map<Integer,Integer> map_set_nodes,int set_n1 , int set_n2) {
+	  map_set_nodes.put(set_n1, set_n2);
+  }
+  
+  // topological sorting of DAG
+  public Stack<Integer> topologicalSorting(){
+	  Stack<Integer> stack = new Stack<Integer>();
+	  Map<Integer,Boolean> visited = new HashMap<>();
+	  
+	  //Initialize visited to false for every index
+	  for(int i =0 ; i < this.V ;i++) {
+		  visited.put(i, false);
+	  }
+	  
+	  for(int i= 0; i< this.V ; i++) {
+		  if(!visited.get(i)) {
+			  this.topologicalSortUtil(i,visited,stack);
+		  }
+	  }
+	  
+	  
+	  return stack;
+  }
+  
+  
+  private void topologicalSortUtil(int nodeIndex,Map<Integer,Boolean> visited,Stack<Integer> stack) {
+	  
+	  visited.put(nodeIndex, true);
+	  
+	  for(  Edge neighbours : this.adjList.get(nodeIndex)) {
+		   int neighbour_index = neighbours.n2.getIndex();
+		   if(!visited.get(neighbour_index)){
+			   this.topologicalSortUtil(neighbour_index, visited, stack);
+		   }
+	  }
+	  
+	  stack.push(nodeIndex);
+	  
   }
   
   
@@ -146,24 +236,166 @@ public class Graph {
   // Print Graph Edge
   public void printGraph() {
     for (int v = 0; v < this.V; v++) {
-      // logger.debug("Edges passing out of Index v : "  +v);
-      System.out.println("Edges passing out of Index v : " + v);
+      logger.debug("Edges passing out of Index v : "  +v);
       List<Edge> edges = this.adjList.get(v);
       for (Edge e : edges) {
-        // logger.debug( "/t" + e.n2.getIndex() + "---> " + e.n1.getIndex() + "weight :" +
-        // e.weight);
-        System.out.println(e.n1.getIndex() + "---> " + e.n2.getIndex() + "weight :" + e.weight);
+        logger.debug( "/t" + e.n2.getIndex() + "---> " + e.n1.getIndex() + "weight :" +
+        e.weight);
+   
       }
     }
+  }
+  
+  
+  // Find shortest distance to every vertex from a given vertex given DAG
+  public void shortestDistanceFromVertexDAG(int nodeIndex) {
+	  
+	  int POSITIVE_INF = 100000; 
+	   Map<Integer,Integer>  distance = new HashMap<Integer,Integer>();
+	   
+	   //Initialize Distance to infinity for all vertex
+	   for(int i=0;i< this.V;i++) {
+		   distance.put(i,POSITIVE_INF );
+	   }
+	   
+	   //set distance of nodeIndex to 0
+	   distance.put(nodeIndex, 0);
+	   
+	   Stack<Integer> topoSort = this.topologicalSorting();
+	   List<Integer> topoSortList = new ArrayList<Integer>();
+	   while(!topoSort.isEmpty()) {
+		   topoSortList.add(topoSort.pop());
+	   }
+	   
+	   
+	   //Loop through all the vertices 
+	   for(int node : topoSortList) {
+		   for (Edge e : this.adjList.get(node)) {
+			    int neighbor_node_index = e.n2.getIndex();
+			    int distance_neighbor_node = e.weight;
+			    //update the distances
+			    if(distance.get(neighbor_node_index) > distance.get(node) + distance_neighbor_node) {
+			    	distance.put(neighbor_node_index, distance.get(node) + distance_neighbor_node);
+			    }
+		   }
+	   }
+	   
+	   
+	   //print the distances
+	   for(int i= 0;i< this.V;i++) {
+		   logger.debug("Distance of Node:" + i +" from NodeIndex : " + nodeIndex + " is :"+ distance.get(i));
+	   }
+	  
+  } 
+  
+  // Function to check if the given graph is BiPartite using BFS
+  public boolean isGraphBipartiteBFS() {
+	  List<Integer> queue = new ArrayList<Integer>();
+	  Map<Integer,Boolean> visited = new HashMap<>();
+	  Map<Integer,String> color = new HashMap<>();
+	  
+	  //initialize visited as 0 for all nodes and initializing color of every node as gray
+	  for(int i =0 ; i < this.V ; i++) {
+		  visited.put(i, false);
+		  color.put(i, "gray");
+	  }
+	  
+	  //Let's start BFS with Node 0
+	  queue.add(0);
+	  color.put(0, "red");
+	  
+	  //BFS
+	  while(queue.size() > 0) {
+		  int nodeIndex = queue.remove(0);
+		  if(!visited.get(nodeIndex)) {
+			  visited.put(nodeIndex, true);
+			  String color_node =color.get(nodeIndex);
+			  
+			  //find the neighbour nodes
+			  for(Edge e:this.adjList.get(nodeIndex)) {
+				  
+				  int neighbourNodeIndex = e.n2.getIndex();
+				  String color_neighbour = color.get(neighbourNodeIndex);
+			  
+				  // if both node and neighbour node same color then bipartite graph
+				  if(color_node.equals(color_neighbour)) return false;
+
+				  if(!visited.get(neighbourNodeIndex)) {
+					 queue.add(neighbourNodeIndex);
+					 String new_color =color_node.equals("red") ? "blue": "red" ;
+					 color.put(neighbourNodeIndex, new_color);
+				  }
+			  }
+		  }
+	  }
+	  
+	  
+	  
+	  return true;
+  } 
+  
+  //MST for undirected connectef graph
+  public void kruskalMST() {
+	  
+	  Map<Integer,Integer> map_set_nodes = new HashMap<>();
+	  
+	  List<Edge> resultEdges = new ArrayList<>();
+	  List<Edge> allEdges = new ArrayList<>();
+	  int e = 0 ; //Index variable used for result resultEdges 
+	  
+	  //STEP 1 : SORT ALL EDGES IN NIN DECREASING ORDER OF WEIGHT
+	  for(int i=0 ; i< this.V ; i++) {
+		  map_set_nodes.put(i, -1); // -1 indicating all nodes have different sets
+		  for(Edge edge : this.adjList.get(i)) {
+			  allEdges.add(edge);
+		  }
+	  }
+	  
+	  Collections.sort(allEdges); 
+	  
+	  int i = 0 ; //counter of resultEdges
+	  while (e < this.V -1) {
+		  Node n1 = allEdges.get(i).n1;
+		  Node n2 = allEdges.get(i).n2;
+		  
+		
+		  
+		  int set_n1 = this.find_set(map_set_nodes,n1.getIndex());
+		  int set_n2 = this.find_set(map_set_nodes,n2.getIndex()); 
+		  
+		  if(set_n1  != set_n2) {
+			  e = e +1;
+			  resultEdges.add(allEdges.get(i));
+			  this.union_set(map_set_nodes, set_n1, set_n2);
+			  
+		  }
+		  i = i +1;
+		  
+	  }
+	  
+	  Collections.sort(resultEdges); 
+	  for(Edge final_edge: resultEdges) { 
+		  
+		  int n1 = final_edge.n1.getIndex();
+		  int n2 = final_edge.n2.getIndex(); 
+		  int weight = final_edge.weight;
+		  logger.debug("Edge is : " + n1 + " ----> " + n2 + " .weight is : " + weight);
+	  }
+	  
+	  
   }
 
   // Node class
   static class Node {
 
     private int index;
-
+    private String color ;
     Node(int index) {
       this.index = index;
+    }
+    
+    private void setColor(String color) {
+    	this.color = color;
     }
 
     private int getIndex() {
@@ -172,7 +404,7 @@ public class Graph {
   }
 
   // Edge class
-  static class Edge {
+  static class Edge implements Comparable<Edge>{
 
     private Node n1;
     private Node n2;
@@ -183,5 +415,10 @@ public class Graph {
       this.n2 = n2;
       this.weight = weight;
     }
+
+  @Override
+  public int compareTo(Edge compareEdge) {
+    return this.weight - compareEdge.weight;
+  }
   }
 }

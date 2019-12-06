@@ -128,7 +128,19 @@ public class CriticalRouterNetwork {
 			while(!stack.isEmpty()) {
 				int nodeIndex = stack.pop();
 				if(!visited.get(nodeIndex)) {
-					connectedComponentsDFSUtil(visited,stack,nodeIndex);
+					//connectedComponentsDFSUtil(visited,stack,nodeIndex);
+					
+					
+					visited.put(nodeIndex, true);
+					//Now Loop through adjList of NodeIndex
+				   for(Edge e: this.adjList.get(nodeIndex)) {
+						int neighbourNodeIndex = e.n2.index;
+						if(!visited.get(neighbourNodeIndex)) {
+							stack.add(neighbourNodeIndex);
+						}
+						
+					}
+
 
 				}
 			}

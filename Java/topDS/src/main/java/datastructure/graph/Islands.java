@@ -72,4 +72,4 @@ class Islands {
 		Islands I = new Islands(); 
 		System.out.println("Number of islands is: " + I.countIslands(M)); 
 	} 
-} // Contributed by Aakash Hasija 
+} 

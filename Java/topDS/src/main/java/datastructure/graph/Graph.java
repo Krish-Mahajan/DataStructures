@@ -199,15 +199,18 @@ public class Graph {
   public Stack<Integer> topologicalSorting(){
 	  Stack<Integer> stack = new Stack<Integer>();
 	  Map<Integer,Boolean> visited = new HashMap<>();
+	  Map<Integer,Boolean> recStack = new HashMap<Integer,Boolean>(); 
+	  
 	  
 	  //Initialize visited to false for every index
 	  for(int i =0 ; i < this.V ;i++) {
 		  visited.put(i, false);
+		  recStack.put(i, false);
 	  }
 	  
 	  for(int i= 0; i< this.V ; i++) {
 		  if(!visited.get(i)) {
-			  this.topologicalSortUtil(i,visited,stack);
+			  this.topologicalSortUtil(i,visited,stack,recStack);
 		  }
 	  }
 	  
@@ -216,17 +219,22 @@ public class Graph {
   }
   
   
-  private void topologicalSortUtil(int nodeIndex,Map<Integer,Boolean> visited,Stack<Integer> stack) {
+  private void topologicalSortUtil(int nodeIndex,Map<Integer,Boolean> visited,Stack<Integer> stack,  Map<Integer,Boolean> recStack) {
 	  
 	  visited.put(nodeIndex, true);
+	  recStack.put(nodeIndex, true);
 	  
 	  for(  Edge neighbours : this.adjList.get(nodeIndex)) {
 		   int neighbour_index = neighbours.n2.getIndex();
 		   if(!visited.get(neighbour_index)){
-			   this.topologicalSortUtil(neighbour_index, visited, stack);
+			   this.topologicalSortUtil(neighbour_index, visited, stack, recStack);
+		   }
+		   else if(recStack.get(neighbour_index)) {
+			   System.out.println("Cycle Detected");
+			   return ;
 		   }
 	  }
-	  
+	  recStack.put(nodeIndex, false);
 	  stack.push(nodeIndex);
 	  
   }
@@ -317,7 +325,7 @@ public class Graph {
 				  int neighbourNodeIndex = e.n2.getIndex();
 				  String color_neighbour = color.get(neighbourNodeIndex);
 			  
-				  // if both node and neighbour node same color then bipartite graph
+				  // if both node and neighbour node same color then not a bipartite graph
 				  if(color_node.equals(color_neighbour)) return false;
 
 				  if(!visited.get(neighbourNodeIndex)) {
@@ -383,9 +391,45 @@ public class Graph {
 	  }
 	  
 	  
+  } 
+  
+  //Find no. of connected components in a graph AdjList
+  public void connectedComponents() {
+	  
+	  Map<Integer,Boolean > visited = new HashMap<>();
+	  for(int i=0;i < this.V;i++) {
+		  visited.put(i, false);		  
+	  }
+	  
+	  
+	  
+	  
+	  for(int i=0 ;i < this.V;i++) {
+		  for(Edge e : this.adjList.get(i)) {
+			  Node n1 = e.n1;
+			  if(!visited.get(n1.index)) {
+				  this.connectedComponentsDFSUtil(visited,n1);
+			  System.out.println(" ");
+		  }
+			  
+	  }
+	  }
+	  
   }
 
-  // Node class
+  private void connectedComponentsDFSUtil(Map<Integer, Boolean> visited,Node n1){
+	 
+	  visited.put(n1.index, true);
+	  System.out.print(n1.index + " ");
+	  for(Edge e: this.adjList.get(n1.index)) {
+		  Node neighbour_node = e.n2;
+		  if(!visited.get(neighbour_node.index)) {
+			  this.connectedComponentsDFSUtil(visited, neighbour_node);
+		  }
+	  }
+}
+
+// Node class
   static class Node {
 
     private int index;

@@ -75,10 +75,16 @@ public class Zombies {
 	
 	public static void main(String[] args) {
 		 
-	        List<Integer> row1 = Arrays.asList(0, 1, 1, 0, 1);
-	        List<Integer> row2 = Arrays.asList(0, 1, 0, 1, 0);
-	        List<Integer> row3 = Arrays.asList(0, 0, 0, 0, 1);
-	        List<Integer> row4 = Arrays.asList(0, 1, 0, 0, 0);
+	       // List<Integer> row1 = Arrays.asList(0, 1, 1, 0, 1);
+	       // List<Integer> row2 = Arrays.asList(0, 1, 0, 1, 0);
+	       // List<Integer> row3 = Arrays.asList(0, 0, 0, 0, 1);
+	        //List<Integer> row4 = Arrays.asList(0, 1, 0, 0, 0);
+	        
+	        List<Integer> row1 = Arrays.asList(0);
+	        List<Integer> row2 = Arrays.asList(1);
+	        List<Integer> row3 = Arrays.asList(0);
+	        List<Integer> row4 = Arrays.asList(0);
+	        
 	        
 	        List<List<Integer>> grid = new ArrayList<>();
 	        grid.add(row1);grid.add(row2);grid.add(row3);grid.add(row4);

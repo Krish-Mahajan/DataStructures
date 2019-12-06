@@ -485,7 +485,11 @@ public class LinkedList<T extends Comparable<T>> {
      * Next is now a pointer to (K+1)th node Recursively call the list, starting from next. And make
      * rest of the list as next of first node
      */
-    if (next != null) head.next = reverseK(next, k);
+    Node<T> temp = reverseK(next, k);
+    if (next != null) {
+    	head.next = temp;
+    }
+    
 
     // prev is now head of the input list
     return prev;

@@ -145,6 +145,47 @@ public class Graph {
 	  return false;
   } 
   
+  //Detect cycle in undirected graph using DFS
+  public boolean detectCycleUndirectedGraphDFS() {
+	  Map<Integer,Boolean> visited = new HashMap<Integer,Boolean>();
+	  //Initialize recStack,visited to false
+	  for(int i=0;i<this.V ; i++) {
+		  visited.put(i, false);
+	  }
+	  
+	  for(Integer nodeIndex :this.adjList.keySet()) {
+		  if(!visited.get(nodeIndex)) {
+			  if(detectCycleUndirectedGraphDFSUtil(nodeIndex,visited,-1)) {
+				  return true;
+			  }
+		  }
+	  }
+	  
+	  return false;
+	  
+	  
+  }
+  
+  
+  private boolean detectCycleUndirectedGraphDFSUtil(int nodeIndex, Map<Integer,Boolean> visited, int parent ) {
+	  
+	  visited.put(nodeIndex, true);
+	  
+	  for(Edge e : this.adjList.get(nodeIndex)) {
+		  int neighbourIndex = e.n2.getIndex();
+		  if(!visited.get(neighbourIndex)) {
+			  if(detectCycleUndirectedGraphDFSUtil(neighbourIndex,visited,nodeIndex)) {
+				  return true;
+			  }
+		  }
+		  else if(neighbourIndex !=parent) {
+			  return true;
+		  }
+	  }
+	  return false;
+	  
+  }
+  
   
   // Detect cycle in UndirectedGraph using UnionFind
   public boolean detectCyclicUnDirectedGrapUnionFind() {

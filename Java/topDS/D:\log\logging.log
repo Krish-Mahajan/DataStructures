@@ -113,3 +113,29 @@
 2019-11-14 21:33:28 DEBUG Graph:382 - Edge is : 3 ----> 2 .weight is : 4
 2019-11-14 21:33:28 DEBUG Graph:382 - Edge is : 0 ----> 3 .weight is : 5
 2019-11-14 21:33:28 DEBUG Graph:382 - Edge is : 0 ----> 1 .weight is : 10
+2019-12-01 11:57:02 DEBUG TestGraph:110 - Following is a Topological sort of the given graph
+2019-12-01 11:57:02 DEBUG TestGraph:119 - 5 
+2019-12-01 11:57:02 DEBUG TestGraph:119 - 4 
+2019-12-01 11:57:02 DEBUG TestGraph:119 - 2 
+2019-12-01 11:57:02 DEBUG TestGraph:119 - 3 
+2019-12-01 11:57:02 DEBUG TestGraph:119 - 0 
+2019-12-01 11:57:02 DEBUG TestGraph:119 - 1 
+2019-12-01 11:57:19 DEBUG TestGraph:110 - Following is a Topological sort of the given graph
+2019-12-01 11:57:19 DEBUG TestGraph:119 - 1 
+2019-12-01 11:57:19 DEBUG TestGraph:119 - 0 
+2019-12-01 12:03:57 DEBUG TestGraph:110 - Following is a Topological sort of the given graph
+2019-12-01 12:03:57 DEBUG TestGraph:119 - 1 
+2019-12-01 12:03:57 DEBUG TestGraph:119 - 0 
+2019-12-01 12:11:19 DEBUG TestGraph:110 - Following is a Topological sort of the given graph
+2019-12-01 12:11:19 DEBUG TestGraph:119 - 0 
+2019-12-01 12:11:50 DEBUG TestGraph:101 - Following is a Topological sort of the g1 graph
+2019-12-01 12:11:50 DEBUG TestGraph:106 - 5 
+2019-12-01 12:11:50 DEBUG TestGraph:106 - 4 
+2019-12-01 12:11:50 DEBUG TestGraph:106 - 2 
+2019-12-01 12:11:50 DEBUG TestGraph:106 - 3 
+2019-12-01 12:11:50 DEBUG TestGraph:106 - 1 
+2019-12-01 12:11:50 DEBUG TestGraph:106 - 0 
+2019-12-01 12:11:50 DEBUG TestGraph:110 - Following is a Topological sort of the g2 graph
+2019-12-01 12:11:50 DEBUG TestGraph:119 - 0 
+2019-12-26 09:27:07 DEBUG TestGraph:154 - false
+2019-12-26 09:29:55 DEBUG TestGraph:154 - false

@@ -90,15 +90,15 @@ public class TestBinaryTree {
          List<Integer> ll = Arrays.asList(20, 8, 22, 4, 12, 10, 14);
          bst.insertList(ll);
          System.out.println(bst.isBTBST()); //true
-         
+  
         BinaryTree<Integer> tree = new BinaryTree<Integer>();
  	    tree.root = new BinaryTree.Node<Integer>(1);
  	    tree.root.leftChild =  new BinaryTree.Node<Integer>(2);
  	    tree.root.rightChild =  new BinaryTree.Node<Integer>(3);
  	    tree.root.leftChild.leftChild = new BinaryTree.Node<Integer>(4);
  	    tree.root.leftChild.leftChild.rightChild = new BinaryTree.Node<Integer>(5);
- 	     System.out.println(tree.isBTBST()); //false
-	
+ 	    System.out.println(tree.isBTBST()); //false
+
 		
 	}
 	
@@ -137,7 +137,7 @@ public class TestBinaryTree {
          BinaryTree<Integer> bst = new BinaryTree<>();
          List<Integer> ll = Arrays.asList(20, 8, 22, 4, 12, 10, 14);
          bst.insertList(ll);
-         System.out.println(bst.DepthOfNodeBT(bst.root, 14,0));
+         System.out.println(bst.DepthOfNodeBT(bst.root, 4,0));
          
 	}
 	
@@ -173,9 +173,20 @@ public class TestBinaryTree {
 	@Test
 	public void testVerticalOrderTraversal() {
          BinaryTree<Integer> bst = new BinaryTree<>();
-         List<Integer> ll = Arrays.asList(20, 8, 22, 4, 12, 10, 14,21,23);
+         List<Integer> ll = Arrays.asList(20, 8, 30, 4, 12, 10, 14,21,23,22);
          bst.insertList(ll);
          System.out.println(bst.verticalOrderTraversal());
+         
+      
+	}
+	
+	
+	@Test
+	public void testLevelOrderBFS() {
+         BinaryTree<Integer> bst = new BinaryTree<>();
+         List<Integer> ll = Arrays.asList(20, 8, 30, 4, 12, 10, 14,21,23,22);
+         bst.insertList(ll);
+         System.out.println(bst.levelOrderBFS(bst.root));
          
       
 	}
@@ -183,7 +194,7 @@ public class TestBinaryTree {
 	@Test
 	public void testZigZagTraversal() {
          BinaryTree<Integer> bst = new BinaryTree<>();
-         List<Integer> ll = Arrays.asList(20, 8, 22, 4, 12, 10, 14,21,23);
+         List<Integer> ll = Arrays.asList(20, 8, 30, 4, 12, 10, 14,21,23,22);
          bst.insertList(ll);
          System.out.println(bst.zizzagTraversal(bst.root));
          

@@ -21,6 +21,8 @@ class Course      {
         
         public void addEdge(int i1,int i2){
             this.adjList.get(i1).add(i2);
+           // this.adjList.get(i2).add(i1); uncomment to make it undirected
+            
         }
         
         
@@ -76,10 +78,13 @@ class Course      {
     
     public static void main(String[] args) {
     	
-    	int numCourses = 2;
-    	int[][] prerequisites = {{1,0},{0,1}};
+    	int numCourses = 5;
+    	//int[][] prerequisites = {{1,0},{0,1}};
+    	int[][] prerequisites = {{0,1},{0,2},{1,3},{2,3},{4,1},{3,4}};
     	Course c = new Course();
     	System.out.print(c.canFinish(numCourses, prerequisites));
+    	
+
     }
         
     }

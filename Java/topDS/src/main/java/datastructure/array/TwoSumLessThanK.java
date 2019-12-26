@@ -1,4 +1,4 @@
-package datastructure.stringarray;
+package datastructure.array;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,7 +48,7 @@ public class TwoSumLessThanK {
 	  Map<String, List<String>> ans = new HashMap<>();
 	  String key = " ";
 	  String s =  " ";
-	  ans.put(key, ans.getOrDefault(key, new ArrayList<String>(Arrays.asList(s))).add(s));
+	  //ans.put(key, ans.getOrDefault(key, new ArrayList<String>(Arrays.asList(s))).add(s));
 
   }
 }

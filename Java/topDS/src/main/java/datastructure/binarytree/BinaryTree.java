@@ -3,8 +3,10 @@ package datastructure.binarytree;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
 public class BinaryTree<T extends Comparable<T>> {
 
@@ -209,8 +211,11 @@ public class BinaryTree<T extends Comparable<T>> {
     return (isBTBSTUtil(node.leftChild, mIN_VALUE, node_key)
         && isBTBSTUtil(node.rightChild, node_key, mAX_VALUE));
   }
+  
+  
 
-  // create balanced binary search tree from a sorted array
+
+// create balanced binary search tree from a sorted array
   public void createBSTfromSortedArray(List<T> list) {
     int start = 0;
     int end = list.size() - 1;
@@ -265,6 +270,46 @@ public class BinaryTree<T extends Comparable<T>> {
     this.widthOfTreeUtil(node.rightChild, nodeCount, targetLevel, currentLevel + 1);
   }
 
+  
+  //Level Order using BFS
+  List<List<Integer>> levelList = new ArrayList<>(); 
+  
+  class NodeLevel{
+      Node<Integer> node;
+      int level;
+      NodeLevel(Node<Integer> node ,int level){
+          this.node = node;
+          this.level = level;
+      }
+  }
+  
+ 
+  public List<List<Integer>> levelOrderBFS(Node<Integer> root) {
+      
+      Queue<NodeLevel> q = new LinkedList<>();
+      q.add(new NodeLevel(root,1));
+      
+      //BFS
+      while(!q.isEmpty()){
+          
+          NodeLevel node = q.poll();
+          if( levelList.size() < node.level){
+              levelList.add(new ArrayList<>());
+              }
+          levelList.get(levelList.size()-1).add(node.node.key);
+          
+          List<Node<Integer>> neighbourNodes = new ArrayList<>();
+          neighbourNodes.add(node.node.leftChild);	  
+          neighbourNodes.add(node.node.rightChild);	  
+          for(Node<Integer> neighbourNode : neighbourNodes){
+              if(neighbourNode!=null) q.add(new NodeLevel(neighbourNode,node.level+1));    
+          }
+      }
+      
+       return levelList;
+  }
+  
+  
   // Find width of Tree O(n*2) Solution
   public int widthOfTree(Node<T> node) {
     int heightOfTree = heightOfNode(this.root);
@@ -306,11 +351,13 @@ public class BinaryTree<T extends Comparable<T>> {
 
     if (node.key.compareTo(targetKey) == 0) return level;
 
+    /**
     int downLevel = DepthOfNodeBT(node.leftChild, targetKey, level + 1);
     if (downLevel != 0) return downLevel;
 
-    downLevel = DepthOfNodeBT(node.rightChild, targetKey, level + 1);
-    return downLevel;
+    downLevel = DepthOfNodeBT(node.rightChild, targetKey, level + 1); 
+    return downLevel;*/
+    return Math.max(DepthOfNodeBST(node.leftChild, targetKey, level+1),DepthOfNodeBST(node.rightChild, targetKey, level+1));
   }
 
   // Diameter of a node in BT Brute Force(No of nodes in longest path of tree) O(n*2)
@@ -465,11 +512,14 @@ private void verticalOrderTraversalUtil(Node<T> node,Map<Integer, List<Integer>>
 	
 	if(node != null) {
 		if(map.containsKey(level)) {
+			 if(level >0)  map.get(level).add(0,(int) node.key);
+			 else
 		     map.get(level).add((int) node.key);
 		}
 		else {
 			List<Integer> l = new ArrayList<>();
-			l.add((int)node.key);
+			if(level > 0) l.add(0,(int)node.key);
+			else l.add((int)node.key);
 			map.put(level,l);		
 		}
 		verticalOrderTraversalUtil(node.leftChild, map, level-1);

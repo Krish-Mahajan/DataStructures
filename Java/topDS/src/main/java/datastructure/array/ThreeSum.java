@@ -1,4 +1,4 @@
-package datastructure.stringarray;
+package datastructure.array;
 
 import java.util.ArrayList;
 import java.util.Arrays;
